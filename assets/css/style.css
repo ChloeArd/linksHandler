@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    font-size: 62.5%;
+}
+
+body {
+    height: 100%;
+    width: 95%;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+.fas {
+    color: #4E69B1;
+    font-size: 50px;
+}
+
+a:hover > .fas {
+    color: #293f7c;
+}
+
+a:hover {
+    color: #4E69B1;
+    font-weight: bold;
+}
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+a {
+    color: #6BA4D6;
+    text-decoration: none;
+}
+
+#menu > div > a, #addLink > a > .fas {
+    margin: 0 10px;
+}
+
+#addLink {
+    width: 15%;
+}
+
+#middle {
+    width: 80%;
+}
+
+#account {
+    width: 5%;
+}
+
+#containerPicture {
+    border-top: 4px solid #7E7E7E;
+    border-right: 4px solid #7E7E7E;
+    border-left: 4px solid #7E7E7E;
+    margin-bottom: -4px;
+    width: 100%;
+}
+
+#containerPicture > img {
+    width: 100%;
+}
+
+#link {
+    width: 20%;
+    margin: 40px;
+}
+
+#containerLink {
+    border: 4px solid #0067A0;
+    color: #0067A0;
+    padding: 20px;
+    font-size: 25px;
+    background-color: #F2F2F2;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
+.center {
+    text-align: center;
+}
+
+form {
+    font-size: 20px;
+    border: 2px solid #7E7E7E;
+    border-radius: 10px;
+    margin: auto;
+    padding: 30px;
+    width: 20%
+}
+
+input, select {
+    width: 90%;
+    border: none;
+    background-color: #F2F2F2;
+    padding: 5px;
+    margin: 10px;
+    font-size: 20px;
+}
+
+label {
+    margin: 15px;
+}
+
+h1 {
+    margin: 20px;
+}
+
+.button {
+    border: none;
+    padding: 8px;
+    color: white;
+    background-color: #4E69B1;
+    border-radius: 10px;
+}
+
+.button:hover {
+    background-color: #293f7c;
+}
+
+.fa-trash-alt, .fa-pen-square {
+    font-size: 30px;
+    margin: 10px;
+}
+
+@media screen and (max-width: 1680px) {
+    #link {
+        width: 18%;
+    }
+}
+
+@media screen and (max-width: 1205px) {
+    #link {
+        width: 25%;
+    }
+}
+
+@media screen and (max-width: 1013px) {
+    #link {
+        width: 23%;
+    }
+    #containerLink {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    #link {
+        width: 35%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #link {
+        margin: 30px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #link {
+        width: 80%;
+    }
+    .fas {
+        font-size: 30px;
+    }
+    #addLink > a {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #menu {
+        font-size: 12px;
+    }
+}

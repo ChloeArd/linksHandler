@@ -1,0 +1,16 @@
+{
+    "name": "chloe/links-handler",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Chloe\\LinksHandler\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ChloeArd",
+            "email": "chloe.ardoise@gmail.com"
+        }
+    ],
+    "require": {}
+}
