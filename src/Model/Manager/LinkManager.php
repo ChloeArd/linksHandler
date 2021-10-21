@@ -100,4 +100,14 @@ class LinkManager {
 
         return $request->execute();
     }
+
+    /**
+     * delete a link
+     * @param int $id
+     */
+    public function delete(int $id) {
+        $request = DB::getInstance()->prepare("DELETE FROM prefix_link WHERE id = :id");
+        $request->bindValue(":id", $id);
+        $request->execute();
+    }
 }

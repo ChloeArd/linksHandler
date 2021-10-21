@@ -75,4 +75,19 @@ class LinkController {
             $this->return("updateLinkView", "Modifier un lien");
         }
     }
+
+    public function delete($link) {
+        if (isset($_SESSION["id"])) {
+                if (isset($link['id'])) {
+                    $manager = new LinkManager();
+
+                    $id = intval($link['id']);
+
+                    $manager->delete($id);
+                    header("Location: ../index.php?success=1");
+                }
+                $this->return("deleteLinkView", "Suppirmer un lien");
+            }
+    }
+
 }

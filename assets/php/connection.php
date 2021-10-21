@@ -18,6 +18,10 @@ if (isset($_POST["mail"], $_POST["pass"])) {
     if ($pass === $user['pass']) {
         // If the 2 password correspond then we open the session and we store the user's data in a session.
         session_start();
+
+        $timeSession = 60 * 60 * 5; // session ends after 5 hours
+        session_set_cookie_params($timeSession);
+
         $_SESSION['id'] = $user['id'];
         $_SESSION['nom'] = $user['nom'];
         $_SESSION['prenom'] = $user['prenom'];
