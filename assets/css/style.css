@@ -199,12 +199,13 @@ h1 {
 
 @media screen and (max-width: 850px) {
     #link {
-        width: 35%;
+        width: 30%;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 670px) {
     #link {
+        width: 25%;
         margin: 30px;
     }
 }
@@ -218,6 +219,9 @@ h1 {
     }
     #addLink > a {
         flex-direction: column;
+    }
+    .edit {
+        flex-direction: row;
     }
 }
 
