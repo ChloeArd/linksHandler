@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require 'vendor/autoload.php';
+require dirname(__FILE__) . '/../vendor/autoload.php';
 
-require_once 'src/Controller/Traits/ReturnViewTrait.php';
+require_once dirname(__FILE__) . '/../src/Controller/Traits/ReturnViewTrait.php';
 
 use Chloe\LinksHandler\Controller\HomeController;
 use Chloe\LinksHandler\Controller\LinkController;

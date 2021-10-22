@@ -10,7 +10,7 @@ foreach ($link as $value) {?>
             <p class="center margTop40">Voulez vous vraiment supprimer ce lien ?</p>
             <input type="hidden" value="<?=$id?>" name="id">
             <input type="submit" name="submit" value="Oui" class="button margTop15">
-            <a href="../index.php" class="button button2">Non</a>
+            <a href="../public/index.php" class="button button2">Non</a>
         </form>
     </main>
     <?php

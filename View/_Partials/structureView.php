@@ -5,7 +5,7 @@
     <title><?= $title ?></title>
     <script src="https://kit.fontawesome.com/351e9300a0.js" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
 </head>
 <body>
 
@@ -20,7 +20,7 @@
                 ?>
             </div>
             <div id="middle" class="flexCenter">
-                <a href="../../index.php">Accueil</a>
+                <a href="../../">Accueil</a>
                 <?php
                 if (!isset($_SESSION['id'])) {?>
                     <a href="../../index.php?controller=home&page=connection">Connexion</a>
@@ -37,8 +37,6 @@
                 }
                 ?>
             </div>
-
-
         </div>
     </header>
 
