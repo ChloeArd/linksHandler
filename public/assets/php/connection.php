@@ -1,7 +1,7 @@
 <?php
 use Chloe\LinksHandler\Model\DB;
 
-require "../../src/Model/DB.php";
+require "../../../src/Model/DB.php";
 
 if (isset($_POST["mail"], $_POST["pass"])) {
     $bdd = DB::getInstance();
