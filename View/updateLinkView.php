@@ -10,8 +10,6 @@ $link = $manager->getLinkId($id);?>
             foreach ($link as $value) {?>
                 <label for="href">L'URL du lien</label>
                 <input type="url" id="href" name="href" value="<?=$value->getHref()?>" required>
-                <label for="src">L'URL de l'image</label>
-                <input type="text" id="src" name="src" value="<?=$value->getSrc()?>" required>
                 <label for="title">Titre de l'image</label>
                 <input type="text" id="title" name="title" value="<?=$value->getTitle()?>" required>
                 <label for="target">Où afficher l'URL liée</label>

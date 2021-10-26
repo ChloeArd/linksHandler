@@ -15,24 +15,18 @@ class LinkController {
      */
     public function add($link) {
         if (isset($_SESSION['id'])) {
-            if (isset($link['href'], $link['title'], $link['target'], $link['name'], $link['src'])) {
+            if (isset($link['href'], $link['title'], $link['target'], $link['name'])) {
                 $manager = new LinkManager();
 
                 $href = htmlentities(trim($link['href']));
                 $title = htmlentities(trim(ucfirst($link['title'])));
                 $target = htmlentities(trim($link['target']));
                 $name = htmlentities(trim(ucfirst($link['name'])));
-                $src = htmlentities(trim($link['src']));
 
                 if (filter_var($href, FILTER_VALIDATE_URL)) {
-                    if (filter_var($src, FILTER_VALIDATE_URL)) {
-                        $link = new Link(null, $href, $title, $target, $name, $src);
-                        $manager->add($link);
-                        header("Location: ../index.php?success=0");
-                    }
-                    else {
-                        header("Location: ../index.php?controller=link&action=add&error=0");
-                    }
+                    $link = new Link(null, $href, $title, $target, $name);
+                    $manager->add($link);
+                    header("Location: ../index.php?success=0");
                 }
                 else {
                     header("Location: ../index.php?controller=link&action=add&error=1");
@@ -48,7 +42,7 @@ class LinkController {
      */
     public function update($link) {
         if (isset($_SESSION['id'])) {
-            if (isset($link['id'], $link['href'], $link['title'], $link['target'], $link['name'], $link['src'])) {
+            if (isset($link['id'], $link['href'], $link['title'], $link['target'], $link['name'])) {
                 $manager = new LinkManager();
 
                 $id = intval($link['id']);
@@ -56,17 +50,11 @@ class LinkController {
                 $title = htmlentities(trim(ucfirst($link['title'])));
                 $target = htmlentities(trim($link['target']));
                 $name = htmlentities(trim(ucfirst($link['name'])));
-                $src = htmlentities(trim($link['src']));
 
                 if (filter_var($href, FILTER_VALIDATE_URL)) {
-                    if (filter_var($src, FILTER_VALIDATE_URL)) {
-                        $link = new Link($id, $href, $title, $target, $name, $src);
-                        $manager->update($link);
-                        header("Location: ../index.php?success=0");
-                    }
-                    else {
-                        header("Location: ../index.php?controller=link&action=update&id=$id&error=0");
-                    }
+                    $link = new Link($id, $href, $title, $target, $name);
+                    $manager->update($link);
+                    header("Location: ../index.php?success=0");
                 }
                 else {
                     header("Location: ../index.php?controller=link&action=update&id=$id&error=1");

@@ -4,7 +4,7 @@
         foreach ($var['links'] as $link) {?>
             <a href="<?=$link->getHref()?>" id="link" class="flexColumn" target="<?=$link->getTarget()?>">
                 <div id="containerPicture">
-                    <img src="<?=$link->getSrc()?>" alt="<?=$link->getTitle()?>">
+                    <img src="../assets/picture/photo.PNG" alt="<?=$link->getTitle()?>">
                 </div>
                 <div id="containerLink" class="flexCenter">
                     <p><?=$link->getName()?></p>

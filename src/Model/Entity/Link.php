@@ -9,7 +9,6 @@ class Link {
     private ?string $title;
     private ?string $target;
     private ?string $name;
-    private ?string $src;
 
     /**
      * @param int|null $id
@@ -18,14 +17,12 @@ class Link {
      * @param string|null $target
      * @param string|null $name
      */
-    public function __construct(?int $id = null, ?string $href =null, ?string $title = null, ?string $target = null, ?string $name = null,
-    ?string $src = null) {
+    public function __construct(?int $id = null, ?string $href =null, ?string $title = null, ?string $target = null, ?string $name = null) {
         $this->id = $id;
         $this->href = $href;
         $this->title = $title;
         $this->target = $target;
         $this->name = $name;
-        $this->src = $src;
     }
 
     /**
@@ -101,20 +98,5 @@ class Link {
     public function setName(?string $name): ?string {
         $this->name = $name;
         return $name;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSrc(): ?string {
-        return $this->src;
-    }
-
-    /**
-     * @param string|null $src
-     */
-    public function setSrc(?string $src): ?string {
-        $this->src = $src;
-        return $src;
     }
 }

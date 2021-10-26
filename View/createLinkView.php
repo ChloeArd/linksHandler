@@ -3,8 +3,6 @@
     <form method="post" action="" class="flexColumn flexCenter width80 auto">
         <label for="href">L'URL du lien</label>
         <input type="url" id="href" name="href" required>
-        <label for="src">L'URL de l'image</label>
-        <input type="text" id="src" name="src" required>
         <label for="title">Titre de l'image</label>
         <input type="text" id="title" name="title" required>
         <label for="target">Où afficher l'URL liée</label>
