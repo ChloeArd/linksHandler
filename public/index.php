@@ -11,11 +11,14 @@ use Chloe\LinksHandler\Controller\LinkController;
 if (isset($_GET['controller'])) {
     switch ($_GET['controller']) {
         case 'home' :
+            $controller = new HomeController();
             if (isset($_GET['page'])) {
                 switch ($_GET['page']) {
                     case 'connection' :
-                        $controller = new HomeController();
                         $controller->connection();
+                        break;
+                    case 'registration' :
+                        $controller->registration();
                         break;
                 }
             }

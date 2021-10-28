@@ -3,19 +3,19 @@ use Chloe\LinksHandler\Model\DB;
 
 require "../../../src/Model/DB.php";
 
-if (isset($_POST["mail"], $_POST["pass"])) {
+if (isset($_POST["email"], $_POST["password"])) {
     $bdd = DB::getInstance();
 
-    $mail = htmlentities(trim($_POST['mail']));
-    $pass = htmlentities(trim($_POST['pass']));
+    $mail = htmlentities(trim($_POST['email']));
+    $pass = htmlentities(trim($_POST['password']));
 
     // I get the name of the user
-    $stmt = $bdd->prepare("SELECT * FROM prefix_user WHERE mail = :mail");
-    $stmt->bindParam(":mail", $mail);
+    $stmt = $bdd->prepare("SELECT * FROM prefix_user WHERE email = :email");
+    $stmt->bindParam(":email", $mail);
     $stmt->execute();
 
     $user = $stmt->fetch();
-    if ($pass === $user['pass']) {
+    if (password_verify($pass, $user['password'])) {
         // If the 2 password correspond then we open the session and we store the user's data in a session.
         session_start();
 
@@ -23,10 +23,11 @@ if (isset($_POST["mail"], $_POST["pass"])) {
         session_set_cookie_params($timeSession);
 
         $_SESSION['id'] = $user['id'];
-        $_SESSION['nom'] = $user['nom'];
-        $_SESSION['prenom'] = $user['prenom'];
-        $_SESSION['mail'] = $mail;
-        $_SESSION['pass'] = $pass;
+        $_SESSION['firstname'] = $user['firstname'];
+        $_SESSION['lastname'] = $user['lastname'];
+        $_SESSION['email'] = $mail;
+        $_SESSION['password'] = $pass;
+        $_SESSION['role_fk'] = $user['role_fk'];
         $id = $_SESSION['id'];
 
         header("Location: ../../index.php?success=0&id=$id");

@@ -15,7 +15,7 @@
                 <?php
                 if (isset($_SESSION['id'])) {?>
                     <a href="../../index.php?controller=link&action=add" class="flexCenter"><i class="fas fa-plus-square"></i>Ajouter un lien</a>
-                <?php
+                    <?php
                 }
                 ?>
             </div>
@@ -24,6 +24,7 @@
                 <?php
                 if (!isset($_SESSION['id'])) {?>
                     <a href="../../index.php?controller=home&page=connection">Connexion</a>
+                    <a href="../../index.php?controller=home&page=registration">Inscription</a>
                 <?php
                 }
                 ?>
@@ -33,6 +34,7 @@
                 <?php
                 if (isset($_SESSION['id'])) {?>
                     <a href="#"><i class="fas fa-user-circle"></i></a>
+                    <a href="../assets/php/disconnection.php">Déconnexion</a>
                 <?php
                 }
                 ?>
