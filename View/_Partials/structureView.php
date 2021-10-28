@@ -21,6 +21,7 @@
             </div>
             <div id="middle" class="flexCenter">
                 <a href="../../">Accueil</a>
+                <a href="../../index.php?controller=home&page=contact">Contact</a>
                 <?php
                 if (!isset($_SESSION['id'])) {?>
                     <a href="../../index.php?controller=home&page=connection">Connexion</a>
@@ -33,7 +34,7 @@
             <div id="account">
                 <?php
                 if (isset($_SESSION['id'])) {?>
-                    <a href="#"><i class="fas fa-user-circle"></i></a>
+                    <a href="../../index.php?controller=user&action=account"><i class="fas fa-user-circle"></i></a>
                     <a href="../assets/php/disconnection.php">Déconnexion</a>
                 <?php
                 }

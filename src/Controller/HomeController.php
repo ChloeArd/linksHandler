@@ -32,4 +32,11 @@ class HomeController {
     public function registration() {
         $this->return("registrationView", "Inscription");
     }
+
+    /**
+     * display the contact page
+     */
+    public function contact() {
+        $this->return("contactView", "Contact");
+    }
 }
