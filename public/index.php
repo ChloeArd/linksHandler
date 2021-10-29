@@ -57,5 +57,5 @@ if (isset($_GET['controller'])) {
 }
 else {
     $controller = new HomeController();
-    $controller->homePage();
+    $controller->homePage($_POST);
 }

@@ -70,25 +70,6 @@ class LinkController {
         }
     }
 
-    /**
-     * add a click to each click on a link
-     * @param Link $link
-     */
-    public function addClick(Link $link) {
-        if (isset($link['id'], $link['href'], $link['click'])) {
-            $manager = new LinkManager();
-
-            $id = intval($link['id']);
-            $href = $link['href'];
-            $click = $link['click'] + 1;
-
-            $link = new Link($id, $href, $click);
-            $manager->addClick($link);
-            header("Location: $href");
-
-        }
-    }
-
     public function delete($link) {
         if (isset($_SESSION["id"])) {
                 if (isset($link['id'])) {

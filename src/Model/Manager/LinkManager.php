@@ -80,6 +80,26 @@ class LinkManager {
     }
 
     /**
+     * identical link
+     * @return array
+     */
+    public function identicalLink($href): array {
+        $link = [];
+        $request = DB::getInstance()->prepare("SELECT * FROM prefix_link WHERE href = :href");
+        $request->bindValue(':href', $href);
+        if($request->execute()) {
+            foreach ($request->fetchAll() as $info) {
+                $user = UserManager::getManager()->getUser($info['user_fk']);
+                if($user->getId()) {
+                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $info['click'], $user);
+                }
+            }
+        }
+        return $link;
+    }
+
+
+    /**
      * count the number of link
      * @return bool
      */

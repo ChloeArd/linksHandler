@@ -3,6 +3,7 @@
 namespace Chloe\LinksHandler\Controller;
 
 use Chloe\LinksHandler\Model\Controller\Traits\ReturnViewTrait;
+use Chloe\LinksHandler\Model\Entity\Link;
 use Chloe\LinksHandler\Model\Manager\LinkManager;
 
 
@@ -13,10 +14,22 @@ class HomeController {
     /**
      * display the home page
      */
-    public function homePage() {
+    public function homePage($link) {
         $manager = new LinkManager();
         $links = $manager->getLinks();
+        if (isset($link['id'], $link['href'], $link['click'])) {
+            $manager = new LinkManager();
+
+            $id = intval($link['id']);
+            $href = $link['href'];
+            $click = intval($link['click']) + 1;
+
+            $link = new Link($id, $href,'', '', '', $click);
+            $manager->addClick($link);
+            header("Location: $href");
+        }
         $this->return("homeView", "Links Handler", ['links' => $links]);
+
     }
 
     /**
