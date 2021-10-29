@@ -9,6 +9,7 @@ class Link {
     private ?string $title;
     private ?string $target;
     private ?string $name;
+    private ?User $user_fk;
 
     /**
      * @param int|null $id
@@ -16,13 +17,15 @@ class Link {
      * @param string|null $title
      * @param string|null $target
      * @param string|null $name
+     * @param User|null $user_fk
      */
-    public function __construct(?int $id = null, ?string $href =null, ?string $title = null, ?string $target = null, ?string $name = null) {
+    public function __construct(?int $id = null, ?string $href =null, ?string $title = null, ?string $target = null, ?string $name = null, ?User $user_fk = null) {
         $this->id = $id;
         $this->href = $href;
         $this->title = $title;
         $this->target = $target;
         $this->name = $name;
+        $this->user_fk = $user_fk;
     }
 
     /**
@@ -98,5 +101,20 @@ class Link {
     public function setName(?string $name): ?string {
         $this->name = $name;
         return $name;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUserFk(): ?User {
+        return $this->user_fk;
+    }
+
+    /**
+     * @param User|null $user_fk
+     */
+    public function setUserFk(?User $user_fk): ?User {
+        $this->user_fk = $user_fk;
+        return $user_fk;
     }
 }

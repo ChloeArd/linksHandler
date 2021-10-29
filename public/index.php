@@ -7,15 +7,22 @@ require_once dirname(__FILE__) . '/../src/Controller/Traits/ReturnViewTrait.php'
 
 use Chloe\LinksHandler\Controller\HomeController;
 use Chloe\LinksHandler\Controller\LinkController;
+use Chloe\LinksHandler\Controller\UserController;
 
 if (isset($_GET['controller'])) {
     switch ($_GET['controller']) {
         case 'home' :
+            $controller = new HomeController();
             if (isset($_GET['page'])) {
                 switch ($_GET['page']) {
                     case 'connection' :
-                        $controller = new HomeController();
                         $controller->connection();
+                        break;
+                    case 'registration' :
+                        $controller->registration();
+                        break;
+                    case 'contact' :
+                        $controller->contact();
                         break;
                 }
             }
@@ -31,6 +38,15 @@ if (isset($_GET['controller'])) {
                         break;
                     case 'delete':
                         $controller->delete($_POST);
+                        break;
+                }
+            }
+        case 'user' :
+            $controller = new UserController();
+            if (isset($_GET['action'])) {
+                switch ($_GET['action']) {
+                    case 'account':
+                        $controller->account();
                         break;
                 }
             }

@@ -5,6 +5,7 @@ namespace Chloe\LinksHandler\Controller;
 use Chloe\LinksHandler\Model\Controller\Traits\ReturnViewTrait;
 use Chloe\LinksHandler\Model\Manager\LinkManager;
 
+
 class HomeController {
 
     use ReturnViewTrait;
@@ -23,5 +24,19 @@ class HomeController {
      */
     public function connection() {
         $this->return("connectionView", "Connexion");
+    }
+
+    /**
+     * display the registration page
+     */
+    public function registration() {
+        $this->return("registrationView", "Inscription");
+    }
+
+    /**
+     * display the contact page
+     */
+    public function contact() {
+        $this->return("contactView", "Contact");
     }
 }

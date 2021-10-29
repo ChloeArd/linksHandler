@@ -8,6 +8,14 @@ use Chloe\LinksHandler\Model\Manager\Traits\ManagerTrait;
 
 class LinkManager {
 
+    use ManagerTrait;
+
+    private UserManager $userManager;
+
+    public function __construct() {
+        $this->userManager = new UserManager();
+    }
+
     /**
      * Return a link
      * @param $id
@@ -26,6 +34,8 @@ class LinkManager {
             $link->setTitle($info['title']);
             $link->setTarget($info['target']);
             $link->setName($info['name']);
+            $user = $this->userManager->getUser($info['user_fk']);
+            $link->setUserFk($user);
         }
         return $link;
     }
@@ -39,7 +49,10 @@ class LinkManager {
         $request = DB::getInstance()->prepare("SELECT * FROM prefix_link ORDER by id DESC");
         if($request->execute()) {
             foreach ($request->fetchAll() as $info) {
-                $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name']);
+                $user = UserManager::getManager()->getUser($info['user_fk']);
+                if($user->getId()) {
+                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $user);
+                }
             }
         }
         return $link;
@@ -56,7 +69,10 @@ class LinkManager {
         $request->bindValue(":id", $id);
         if($request->execute()) {
             foreach ($request->fetchAll() as $info) {
-                $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name']);
+                $user = UserManager::getManager()->getUser($info['user_fk']);
+                if($user->getId()) {
+                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $user);
+                }
             }
         }
         return $link;
