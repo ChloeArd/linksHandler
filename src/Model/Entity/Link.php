@@ -9,6 +9,7 @@ class Link {
     private ?string $title;
     private ?string $target;
     private ?string $name;
+    private ?int $click;
     private ?User $user_fk;
 
     /**
@@ -17,14 +18,16 @@ class Link {
      * @param string|null $title
      * @param string|null $target
      * @param string|null $name
+     * @param int|null $click
      * @param User|null $user_fk
      */
-    public function __construct(?int $id = null, ?string $href =null, ?string $title = null, ?string $target = null, ?string $name = null, ?User $user_fk = null) {
+    public function __construct(?int $id = null, ?string $href =null, ?string $title = null, ?string $target = null, ?string $name = null, ?int $click = null, ?User $user_fk = null) {
         $this->id = $id;
         $this->href = $href;
         $this->title = $title;
         $this->target = $target;
         $this->name = $name;
+        $this->click = $click;
         $this->user_fk = $user_fk;
     }
 
@@ -101,6 +104,21 @@ class Link {
     public function setName(?string $name): ?string {
         $this->name = $name;
         return $name;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getClick(): ?int {
+        return $this->click;
+    }
+
+    /**
+     * @param int|null $click
+     */
+    public function setClick(?int $click): ?int {
+        $this->click = $click;
+        return $click;
     }
 
     /**
