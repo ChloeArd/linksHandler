@@ -12,7 +12,7 @@ if (isset($_POST["email"], $_POST["subject"], $_POST['message'])) {
         'X-Mailer' => 'PHP/' . phpversion()
     );
 
-    mail($email, $subject, $message, $headers);
+    mail($email, $subject, $message, $headers, "-f " . $email);
 
     header("Location: ../../index.php?controller=home&page=contact&success=0");
 }
