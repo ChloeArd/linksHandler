@@ -7,7 +7,8 @@ if (isset($_POST["email"], $_POST["subject"], $_POST['message'])) {
     $message = htmlentities(trim($_POST['message']));
     $message = wordwrap($message, 70, "\r\n");
     $headers = array(
-        'Reply-To' => 'chloe@chloeard.fr',
+        'Reply-To' => 'chloe.ardoise@gmail.com',
+        'Cc' => 'chloe@chloeard.fr',
         'X-Mailer' => 'PHP/' . phpversion()
     );
 
