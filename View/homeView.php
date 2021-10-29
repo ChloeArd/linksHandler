@@ -11,12 +11,14 @@
                 </div>
             </a>
             <?php
-            if (isset($_SESSION['id'])) {?>
-                <div class="flexColumn edit">
-                    <a href="../index.php?controller=link&action=update&id=<?=$link->getId()?>"><i class="fas fa-pen-square"></i></a>
-                    <a href="../index.php?controller=link&action=delete&id=<?=$link->getId()?>"><i class="fas fa-trash-alt"></i></a>
-                </div>
-                <?php
+            if (isset($_SESSION['id'])) {
+                if ($_SESSION['role_fk'] != 2) {?>
+                    <div class="flexColumn edit">
+                        <a href="../index.php?controller=link&action=update&id=<?=$link->getId()?>"><i class="fas fa-pen-square"></i></a>
+                        <a href="../index.php?controller=link&action=delete&id=<?=$link->getId()?>"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                    <?php
+                }
             }
         }
     }
