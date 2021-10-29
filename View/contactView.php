@@ -7,6 +7,6 @@
         <input type="text" id="subject" name="subject" required>
         <label for="message">Message</label>
         <textarea id="message" name="message"></textarea>
-        <input type="submit" name="submit" value="Me connecter" class="button">
+        <input type="submit" name="submit" value="Contacter" class="button">
     </form>
 </main>
