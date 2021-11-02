@@ -222,6 +222,16 @@ h2 {
     border: 0;
 }
 
+.buttonLink {
+    font-size: 25px;
+    color: #4E69B1;
+}
+
+.buttonLink:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1680px) {
     #link {
         width: 18%;

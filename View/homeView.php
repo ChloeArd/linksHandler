@@ -5,15 +5,16 @@
                 <form id="link" action="" method="post">
                     <input type="hidden" name="id" value="<?=$link->getId()?>">
                     <input type="hidden" name="href" value="<?=$link->getHref()?>">
+                    <input type="hidden" name="target" value="<?=$link->getTarget()?>">
                     <input type="hidden" name="click" value="<?=$link->getClick()?>">
-                    <a href="<?=$link->getHref()?>" class="flexColumn width100" target="<?=$link->getTarget()?>">
+                    <div class="flexColumn width100" target="<?=$link->getTarget()?>">
                         <div id="containerPicture">
                             <img src="../assets/picture/photo.PNG" alt="<?=$link->getTitle()?>">
                         </div>
                         <div id="containerLink" class="flexCenter">
-                            <input type="submit" name="send" value="<?=$link->getName()?>">
+                            <input class="buttonLink" type="submit" name="send" value="<?=$link->getName()?>">
                         </div>
-                    </a>
+                    </div>
                 </form>
             <?php
             if (isset($_SESSION['id'])) {
