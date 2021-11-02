@@ -80,7 +80,7 @@ a {
     border-top: 4px solid #7E7E7E;
     border-right: 4px solid #7E7E7E;
     border-left: 4px solid #7E7E7E;
-    margin-bottom: -4px;
+    margin-bottom: -6px;
     width: 100%;
 }
 
@@ -100,7 +100,6 @@ a {
 #containerLink {
     border: 4px solid #0067A0;
     color: #0067A0;
-    padding: 20px;
     font-size: 25px;
     background-color: #F2F2F2;
 }
@@ -167,6 +166,10 @@ h1 {
     padding: 5px;
 }
 
+.borderNone {
+    border: none;
+}
+
 .width20 {
     width: 20%;
 }
@@ -225,11 +228,17 @@ h2 {
 .buttonLink {
     font-size: 25px;
     color: #4E69B1;
+    width: 100%;
+    padding: 20px;
 }
 
 .buttonLink:hover {
     font-weight: bold;
     cursor: pointer;
+}
+
+a#containerLink:visited > .buttonLink {
+    color: #293f7c;
 }
 
 @media screen and (max-width: 1680px) {

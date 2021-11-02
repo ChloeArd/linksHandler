@@ -7,13 +7,13 @@
                     <input type="hidden" name="href" value="<?=$link->getHref()?>">
                     <input type="hidden" name="target" value="<?=$link->getTarget()?>">
                     <input type="hidden" name="click" value="<?=$link->getClick()?>">
-                    <div class="flexColumn width100" target="<?=$link->getTarget()?>">
+                    <div class="flexColumn width100">
                         <div id="containerPicture">
                             <img src="../assets/picture/photo.PNG" alt="<?=$link->getTitle()?>">
                         </div>
-                        <div id="containerLink" class="flexCenter">
-                            <input class="buttonLink" type="submit" name="send" value="<?=$link->getName()?>">
-                        </div>
+                        <a href="<?=$link->getHref()?>" id="containerLink" class="flexCenter">
+                            <input id="graph1" class="buttonLink" type="submit" name="send" value="<?=$link->getName()?>">
+                        </a>
                     </div>
                 </form>
             <?php

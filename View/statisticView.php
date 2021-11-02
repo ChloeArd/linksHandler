@@ -16,20 +16,51 @@
             if (isset($var['stat1'])) {?>
                 <p class="info2"><?=count($var['stat1'])?></p>
                 <h2>Le nombre total cumulé de clics sur les liens</h2>
-            <?php
-            $nbClick = [];
+                <?php
+                $nbClick = [];
                 foreach ($var['stat1'] as $stat2) {
                     array_push($nbClick, $stat2->getClick());
                 }
                 ?>
                 <p class="info2"><?=array_sum($nbClick)?></p>
+
+                <h2>Le nombre de fois où un lien a été visité</h2>
+                <canvas id="myChart"></canvas>
+                <script src="../assets/js/app.js" type="module"></script>
+
                 <?php
+                $name = [];
+                $click = [];
+
+                foreach ($var['stat1'] as $stat2) {
+                    array_push($name, $stat2->getName());
+                    array_push($click, $stat2->getClick());
+                }
+
+                $name2 = "";
+                $click2 = "";
+                $count = count($name);
+                for($i = 0; $i < $count; $i++ ) {
+                    if ($i < ($count - 1)) {
+                        $name2 .= $name[$i] . ", ";
+                        $click2 .= $click[$i] . ", ";
+                    }
+                    else {
+                        $name2 .= $name[$i];
+                        $click2 .= $click[$i];
+                    }
+                }
+                ?>
+                <form method="post" action="" class="width100 borderNone">
+                    <input id="name" type="hidden" name="name" value="<?=$name2?>">
+                    <input id="click" type="hidden" name="click" value="<?=$click2?>">
+                    <input id="graph1" type="submit" name="send" class="button" value="Actualiser le graphique">
+                </form>
+            <?php
             }
             ?>
 
-            <h2>Le nombre de fois où un lien a été visité</h2>
-            <canvas id="myChart"></canvas>
-            <script src="../assets/js/app.js" type="module"></script>
+
             <h2>Le nombre de lien en commun avec les autres utilisateurs</h2>
         </div>
     </div>

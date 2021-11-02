@@ -27,12 +27,7 @@ class HomeController {
 
             $link = new Link($id, $href,'', $target, '', $click);
             $manager->addClick($link);
-            if ($target == "_blank") {
-                header("Location: $href", false);
-            }
-            else {
-                header("Location: $href");
-            }
+            header("Location: $href");
         }
         $this->return("homeView", "Links Handler", ['links' => $links]);
 
