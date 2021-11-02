@@ -88,12 +88,12 @@ a {
     width: 100%;
 }
 
-#link {
+#linkContainer {
     width: 18%;
     margin: 40px;
 }
 
-#link:hover {
+#linkContainer:hover {
     box-shadow: 5px 5px 10px gray;
 }
 
@@ -220,7 +220,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-#link{
+#linkContainer{
     padding: 0;
     border: 0;
 }
@@ -248,13 +248,13 @@ h2 {
 }
 
 @media screen and (max-width: 1680px) {
-    #link {
+    #linkContainer {
         width: 18%;
     }
 }
 
 @media screen and (max-width: 1205px) {
-    #link {
+    #linkContainer {
         width: 25%;
     }
     #containerAccount {
@@ -269,7 +269,7 @@ h2 {
 }
 
 @media screen and (max-width: 1013px) {
-    #link {
+    #linkContainer {
         width: 23%;
     }
     #containerLink {
@@ -278,20 +278,20 @@ h2 {
 }
 
 @media screen and (max-width: 850px) {
-    #link {
+    #linkContainer {
         width: 30%;
     }
 }
 
 @media screen and (max-width: 670px) {
-    #link {
+    #linkContainer {
         width: 25%;
         margin: 30px;
     }
 }
 
 @media screen and (max-width: 450px) {
-    #link {
+    #linkContainer {
         width: 80%;
     }
     .fas {

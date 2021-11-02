@@ -2,7 +2,7 @@
     <?php
     if (isset($var['links'])) {
         foreach ($var['links'] as $link) {?>
-                <form id="link" action="" method="post">
+                <form id="linkContainer" action="" method="post">
                     <input type="hidden" name="id" value="<?=$link->getId()?>">
                     <input type="hidden" name="href" value="<?=$link->getHref()?>">
                     <input type="hidden" name="target" value="<?=$link->getTarget()?>">
