@@ -243,6 +243,10 @@ h2 {
     margin: auto;
 }
 
+.width90 {
+    width: 90%;
+}
+
 @media screen and (max-width: 1680px) {
     #link {
         width: 18%;
@@ -252,6 +256,15 @@ h2 {
 @media screen and (max-width: 1205px) {
     #link {
         width: 25%;
+    }
+    #containerAccount {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+    }
+    #containerAccount > div, .border {
+        width: 100%;
+        margin: 0;
     }
 }
 
@@ -289,6 +302,13 @@ h2 {
     }
     .edit {
         flex-direction: row;
+    }
+    .button {
+        font-size: 15px;
+        width: initial;
+    }
+    .info2 {
+        font-size: 15px;
     }
 }
 

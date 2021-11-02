@@ -1,7 +1,7 @@
 <main class="flexColumn flexCenter wrap">
     <h1>Mes statistiques</h1>
 
-    <div class="flexRow width80">
+    <div id="containerAccount" class="flexRow width90">
         <div class="flexColumn width20">
             <a href="../../index.php?controller=user&action=account" class="border center">Mes informations</a>
             <?php
@@ -10,13 +10,12 @@
                 <?php
             }
             ?>
+            <a href="../assets/php/disconnection.php" class="border center">Déconnexion</a>
         </div>
 
         <div class="border width80 margB">
             <h2>Le nombre de lien présents dans le système</h2>
             <?php
-
-            use Chloe\LinksHandler\Model\DB;
 
             if (isset($var['stat1'])) {?>
                 <p class="info2"><?=count($var['stat1'])?></p>
@@ -56,7 +55,7 @@
                     }
                 }
                 ?>
-                <form method="post" action="" class="width100 borderNone">
+                <form method="post" action="" class="width100 borderNone flexCenter">
                     <input id="name" type="hidden" name="name" value="<?=$name2?>">
                     <input id="click" type="hidden" name="click" value="<?=$click2?>">
                     <input id="graph1" type="submit" name="send" class="button" value="Actualiser le graphique">
@@ -74,21 +73,6 @@
                 array_push($link, $stat2->getHref());
             }
 
-            /*$arr2 = array();
-            $counter = 0;
-            for($arr = 0; $arr < count($link); $arr++){
-                if (in_array($link[$arr], $arr2)) {
-                    ++$counter;
-                }
-                else{
-                    $arr2[] = $link[$arr];
-                }
-            }
-            echo 'number of duplicates: '.$counter;
-            echo "<pre>";
-            print_r($arr2);
-            echo "</pre>";*/
-
             $tmp = array_count_values($link);
             ?>
             <div class="graph">
@@ -96,7 +80,6 @@
 
             </div>
             <script src="../assets/js/pie.js" type="module"></script>
-
 
             <?php
             $linkHref = [];
@@ -124,7 +107,7 @@
             }
             ?>
 
-            <form method="post" action="" class="width100 borderNone">
+            <form method="post" action="" class="width100 borderNone flexCenter">
                 <input id="link" type="hidden" name="link" value="<?=$linkHref2?>">
                 <input id="duplicate" type="hidden" name="duplicate" value="<?=$duplicate2?>">
                 <input id="graph2" type="submit" name="send" class="button" value="Actualiser le graphique">

@@ -35,7 +35,6 @@
                 <?php
                 if (isset($_SESSION['id'])) {?>
                     <a href="../../index.php?controller=user&action=account"><i class="fas fa-user-circle"></i></a>
-                    <a href="../assets/php/disconnection.php">Déconnexion</a>
                 <?php
                 }
                 ?>
