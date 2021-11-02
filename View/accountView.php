@@ -4,7 +4,12 @@
     <div class="flexRow width80">
         <div class="flexColumn width20">
             <a href="../../index.php?controller=user&action=account" class="border center">Mes informations</a>
-            <a href="../../index.php?controller=user&action=statistic" class="border center">Mes statistiques</a>
+            <?php
+            if ($_SESSION['role_fk'] == 1) {?>
+                <a href="../../index.php?controller=user&action=statistic" class="border center">Mes statistiques</a>
+            <?php
+            }
+            ?>
         </div>
 
         <div class="border width80">

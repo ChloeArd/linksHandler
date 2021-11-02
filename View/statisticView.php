@@ -4,7 +4,12 @@
     <div class="flexRow width80">
         <div class="flexColumn width20">
             <a href="../../index.php?controller=user&action=account" class="border center">Mes informations</a>
-            <a href="../../index.php?controller=user&action=statistic" class="border center">Mes statistiques</a>
+            <?php
+            if ($_SESSION['role_fk'] == 1) {?>
+                <a href="../../index.php?controller=user&action=statistic" class="border center">Mes statistiques</a>
+                <?php
+            }
+            ?>
         </div>
 
         <div class="border width80 margB">
@@ -60,10 +65,70 @@
             }
             ?>
 
-
             <h2>Le nombre de lien en commun avec les autres utilisateurs</h2>
+            <?php
+
+            $link = [];
+
+            foreach ($var['stat1'] as $stat2) {
+                array_push($link, $stat2->getHref());
+            }
+
+            /*$arr2 = array();
+            $counter = 0;
+            for($arr = 0; $arr < count($link); $arr++){
+                if (in_array($link[$arr], $arr2)) {
+                    ++$counter;
+                }
+                else{
+                    $arr2[] = $link[$arr];
+                }
+            }
+            echo 'number of duplicates: '.$counter;
+            echo "<pre>";
+            print_r($arr2);
+            echo "</pre>";*/
+
+            $tmp = array_count_values($link);
+            ?>
+            <div class="graph">
+                <canvas id="myPie"></canvas>
+
+            </div>
+            <script src="../assets/js/pie.js" type="module"></script>
+
+
+            <?php
+            $linkHref = [];
+            $duplicate = [];
+
+            foreach ($tmp as $key => $value) {
+                if ($value >= 2) {
+                    array_push($linkHref, $key);
+                    array_push($duplicate, $value);
+                }
+            }
+
+            $linkHref2 = "";
+            $duplicate2 = "";
+            $count = count($linkHref);
+            for($i = 0; $i < $count; $i++ ) {
+                if ($i < ($count - 1)) {
+                    $linkHref2 .= $linkHref[$i] . ", ";
+                    $duplicate2 .= $duplicate[$i] . ", ";
+                }
+                else {
+                    $linkHref2 .= $linkHref[$i];
+                    $duplicate2 .= $duplicate[$i];
+                }
+            }
+            ?>
+
+            <form method="post" action="" class="width100 borderNone">
+                <input id="link" type="hidden" name="link" value="<?=$linkHref2?>">
+                <input id="duplicate" type="hidden" name="duplicate" value="<?=$duplicate2?>">
+                <input id="graph2" type="submit" name="send" class="button" value="Actualiser le graphique">
+            </form>
         </div>
     </div>
-
-
 </main>

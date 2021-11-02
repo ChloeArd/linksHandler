@@ -23,9 +23,6 @@ for (let i = 0; i < words.length; i++) {
     arrayClick.push(words2[i]);
 }
 
-console.log(arrayName);
-console.log(arrayClick);
-
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',

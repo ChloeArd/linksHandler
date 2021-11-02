@@ -11,9 +11,9 @@
                         <div id="containerPicture">
                             <img src="../assets/picture/photo.PNG" alt="<?=$link->getTitle()?>">
                         </div>
-                        <a href="<?=$link->getHref()?>" id="containerLink" class="flexCenter">
+                        <div id="containerLink" class="flexCenter">
                             <input id="graph1" class="buttonLink" type="submit" name="send" value="<?=$link->getName()?>">
-                        </a>
+                        </div>
                     </div>
                 </form>
             <?php

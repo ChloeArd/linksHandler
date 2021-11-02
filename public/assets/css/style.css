@@ -230,6 +230,7 @@ h2 {
     color: #4E69B1;
     width: 100%;
     padding: 20px;
+    margin: 0;
 }
 
 .buttonLink:hover {
@@ -237,8 +238,9 @@ h2 {
     cursor: pointer;
 }
 
-a#containerLink:visited > .buttonLink {
-    color: #293f7c;
+.graph {
+    width: 50%;
+    margin: auto;
 }
 
 @media screen and (max-width: 1680px) {
