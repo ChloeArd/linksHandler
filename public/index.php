@@ -48,11 +48,14 @@ if (isset($_GET['controller'])) {
                     case 'account':
                         $controller->account();
                         break;
+                    case 'statistic':
+                        $controller->statistic();
+                        break;
                 }
             }
     }
 }
 else {
     $controller = new HomeController();
-    $controller->homePage();
+    $controller->homePage($_POST);
 }

@@ -4,6 +4,7 @@ namespace Chloe\LinksHandler\Controller;
 use Chloe\LinksHandler\Model\Controller\Traits\ReturnViewTrait;
 use Chloe\LinksHandler\Model\Entity\Link;
 use Chloe\LinksHandler\Model\Manager\LinkManager;
+use Chloe\LinksHandler\Model\Manager\UserManager;
 
 class LinkController {
 
@@ -15,18 +16,23 @@ class LinkController {
      */
     public function add($link) {
         if (isset($_SESSION['id'])) {
-            if (isset($link['href'], $link['title'], $link['target'], $link['name'])) {
+            if (isset($link['href'], $link['title'], $link['target'], $link['name'], $link['user_fk'])) {
                 $manager = new LinkManager();
+                $userManager = new UserManager();
 
                 $href = htmlentities(trim($link['href']));
                 $title = htmlentities(trim(ucfirst($link['title'])));
                 $target = htmlentities(trim($link['target']));
                 $name = htmlentities(trim(ucfirst($link['name'])));
+                $user_fk = intval($link['user_fk']);
 
                 if (filter_var($href, FILTER_VALIDATE_URL)) {
-                    $link = new Link(null, $href, $title, $target, $name);
-                    $manager->add($link);
-                    header("Location: ../index.php?success=0");
+                    $user_fk = $userManager->getUser($user_fk);
+                    if ($user_fk->getId()) {
+                        $link = new Link(null, $href, $title, $target, $name, null, $user_fk);
+                        $manager->add($link);
+                        header("Location: ../index.php?success=0");
+                    }
                 }
                 else {
                     header("Location: ../index.php?controller=link&action=add&error=1");

@@ -34,6 +34,7 @@ class LinkManager {
             $link->setTitle($info['title']);
             $link->setTarget($info['target']);
             $link->setName($info['name']);
+            $link->setClick($info['click']);
             $user = $this->userManager->getUser($info['user_fk']);
             $link->setUserFk($user);
         }
@@ -51,7 +52,7 @@ class LinkManager {
             foreach ($request->fetchAll() as $info) {
                 $user = UserManager::getManager()->getUser($info['user_fk']);
                 if($user->getId()) {
-                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $user);
+                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $info['click'], $user);
                 }
             }
         }
@@ -71,11 +72,42 @@ class LinkManager {
             foreach ($request->fetchAll() as $info) {
                 $user = UserManager::getManager()->getUser($info['user_fk']);
                 if($user->getId()) {
-                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $user);
+                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $info['click'], $user);
                 }
             }
         }
         return $link;
+    }
+
+    /**
+     * identical link
+     * @return array
+     */
+    public function identicalLink($href): array {
+        $link = [];
+        $request = DB::getInstance()->prepare("SELECT * FROM prefix_link WHERE href = :href");
+        $request->bindValue(':href', $href);
+        if($request->execute()) {
+            foreach ($request->fetchAll() as $info) {
+                $user = UserManager::getManager()->getUser($info['user_fk']);
+                if($user->getId()) {
+                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $info['click'], $user);
+                }
+            }
+        }
+        return $link;
+    }
+
+
+    /**
+     * count the number of link
+     * @return bool
+     */
+    public function countLinks() {
+        $request = DB::getInstance()->prepare("SELECT COUNT(*) FROM prefix_link");
+        $result = $request->execute();
+        return $result;
+
     }
 
     /**
@@ -85,14 +117,16 @@ class LinkManager {
      */
     public function add (Link $link): bool {
         $request = DB::getInstance()->prepare("
-            INSERT INTO prefix_link (href, title, target, name)
-                VALUES (:href, :title, :target, :name) 
+            INSERT INTO prefix_link (href, title, target, name, click, user_fk)
+                VALUES (:href, :title, :target, :name, :click, :user_fk) 
         ");
 
         $request->bindValue(':href', $link->getHref());
         $request->bindValue(':title', $link->getTitle());
         $request->bindValue(':target', $link->getTarget());
         $request->bindValue(':name', $link->getName());
+        $request->bindValue(':click',0);
+        $request->bindValue(':user_fk', $link->getUserFk()->getId());
 
         return $request->execute() && DB::getInstance()->lastInsertId() != 0;
     }
@@ -114,6 +148,15 @@ class LinkManager {
         return $request->execute();
     }
 
+    public function addClick(Link $link): bool {
+        $request = DB::getInstance()->prepare("UPDATE prefix_link SET click = :click WHERE id = :id");
+
+        $request->bindValue(":id", $link->getId());
+        $request->bindValue(":click", $link->setClick($link->getClick()));
+
+        return $request->execute();
+    }
+
     /**
      * delete a link
      * @param int $id
@@ -123,4 +166,5 @@ class LinkManager {
         $request->bindValue(":id", $id);
         $request->execute();
     }
+
 }

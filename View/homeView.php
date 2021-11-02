@@ -2,14 +2,20 @@
     <?php
     if (isset($var['links'])) {
         foreach ($var['links'] as $link) {?>
-            <a href="<?=$link->getHref()?>" id="link" class="flexColumn" target="<?=$link->getTarget()?>">
-                <div id="containerPicture">
-                    <img src="../assets/picture/photo.PNG" alt="<?=$link->getTitle()?>">
-                </div>
-                <div id="containerLink" class="flexCenter">
-                    <p><?=$link->getName()?></p>
-                </div>
-            </a>
+                <form id="link" action="" method="post">
+                    <input type="hidden" name="id" value="<?=$link->getId()?>">
+                    <input type="hidden" name="href" value="<?=$link->getHref()?>">
+                    <input type="hidden" name="target" value="<?=$link->getTarget()?>">
+                    <input type="hidden" name="click" value="<?=$link->getClick()?>">
+                    <div class="flexColumn width100">
+                        <div id="containerPicture">
+                            <img src="../assets/picture/photo.PNG" alt="<?=$link->getTitle()?>">
+                        </div>
+                        <div id="containerLink" class="flexCenter">
+                            <input id="graph1" class="buttonLink" type="submit" name="send" value="<?=$link->getName()?>">
+                        </div>
+                    </div>
+                </form>
             <?php
             if (isset($_SESSION['id'])) {
                 if ($_SESSION['role_fk'] != 2) {?>
