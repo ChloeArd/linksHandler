@@ -25,7 +25,7 @@
                     <input type="hidden" name="click" value="<?=$link->getClick()?>">
                     <div class="flexColumn width100">
                         <div id="containerPicture">
-                            <img src="<?php echo thumbalizr($link->getHref()); ?>" title="<?=$link->getTitle()?>">
+                            <img src="<?php echo thumbalizr($link->getHref()); ?>" alt="<?=$link->getTitle()?>">
                         </div>
                         <div id="containerLink" class="flexCenter">
                             <input class="buttonLink" type="submit" name="send" value="<?=$link->getName()?>">

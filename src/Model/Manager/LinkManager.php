@@ -80,37 +80,6 @@ class LinkManager {
     }
 
     /**
-     * identical link
-     * @return array
-     */
-    public function identicalLink($href): array {
-        $link = [];
-        $request = DB::getInstance()->prepare("SELECT * FROM prefix_link WHERE href = :href");
-        $request->bindValue(':href', $href);
-        if($request->execute()) {
-            foreach ($request->fetchAll() as $info) {
-                $user = UserManager::getManager()->getUser($info['user_fk']);
-                if($user->getId()) {
-                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $info['click'], $user);
-                }
-            }
-        }
-        return $link;
-    }
-
-
-    /**
-     * count the number of link
-     * @return bool
-     */
-    public function countLinks() {
-        $request = DB::getInstance()->prepare("SELECT COUNT(*) FROM prefix_link");
-        $result = $request->execute();
-        return $result;
-
-    }
-
-    /**
      * add a link
      * @param Link $link
      * @return bool
@@ -161,7 +130,7 @@ class LinkManager {
      * delete a link
      * @param int $id
      */
-    public function delete(int $id) {
+    public function delete(int $id) : int {
         $request = DB::getInstance()->prepare("DELETE FROM prefix_link WHERE id = :id");
         $request->bindValue(":id", $id);
         $request->execute();
