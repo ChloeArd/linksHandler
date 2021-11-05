@@ -1,8 +1,7 @@
-
-
+//say a user is logged out
 if ($("#disconnection")) {
     $("#disconnection").click(function (e) {
-        sessionStorage.session = "non";
+        sessionStorage.role = "";
     });
 }
 
@@ -26,7 +25,8 @@ $.get("../../api/link", function (response) {
             </form>
             `);
 
-        if(response[$i].user.role.id !== "2" && sessionStorage.session === "ok") {
+        // checks if the role of the user who is logged in is different from 2
+        if(sessionStorage.role !== "2") {
             $("#homeLinks").append(`
             <div class="flexColumn edit">
                 <a href="../index.php?controller=link&action=update&id=${response[$i].id}"><i class="fas fa-pen-square"></i></a>
@@ -34,7 +34,6 @@ $.get("../../api/link", function (response) {
             </div>
         `);
         }
-
     }
 });
 
