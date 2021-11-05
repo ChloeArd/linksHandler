@@ -135,6 +135,7 @@ switch($requestType) {
                 'message' => 'L\'id est manquant',
             ];
         }
+        echo json_encode($response);
         break;
 }
 

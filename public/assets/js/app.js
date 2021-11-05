@@ -3,7 +3,7 @@
 $.get("../../api/link", function (response) {
     for ($i = 0; $i < response.length; $i++) {
         $("#test").append(`
-        <form id="linkContainer" action="${response[$i].href}" method="post">
+        <form id="linkContainer" action="" method="post">
             <input id="id" type="hidden" name="id" value='${response[$i].id}'>
             <input id="href" type="hidden" name="href" value='${response[$i].href}'>
             <input id="target" type="hidden" name="target" value='${response[$i].target}'>
@@ -48,22 +48,6 @@ if ($("#createLink")) {
                     if ($response.error === "error3") {
                         window.location.href = "index.php?controller=link&action=add&error=3";
                     }
-                    $("#test").append(`
-                    <form id="linkContainer" action="" method="post">
-                        <input type="hidden" name="id" value='${$response.id}'>
-                        <input type="hidden" name="href" value='${$response.href}'>
-                        <input type="hidden" name="target" value='${$response.target}'>
-                        <input type="hidden" name="click" value='${$response.click}'>
-                        <div id="container1" class="flexColumn width100">
-                            <div id="containerPicture">
-                                <img src="${$response.image}" alt='${$response.title}'>
-                            </div>
-                            <div id="containerLink" class="flexCenter">
-                                <input class="buttonLink" type="submit" name="send" value='${$response.name}'>
-                            </div>
-                        </div>
-                    </form>
-                `);
                 }
             }
             $linkData = {
