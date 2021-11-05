@@ -10,7 +10,7 @@
                 <?php
             }
             ?>
-            <a href="../assets/php/disconnection.php" class="border center">Déconnexion</a>
+            <a href="../assets/php/disconnection.php" id="disconnection" class="border center">Déconnexion</a>
         </div>
 
         <div class="border width80 margB">

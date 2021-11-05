@@ -172,7 +172,10 @@ function getLinks(LinkManager $manager): string {
             'user' => [
                 'id' => $link->getUserFk()->getId(),
                 'firstname' => $link->getUserFk()->getFirstname(),
-                'lastname' => $link->getUserFk()->getLastname()
+                'lastname' => $link->getUserFk()->getLastname(),
+                'role' => [
+                    'id' => $link->getUserFk()->getRoleFk()->getId(),
+                ]
             ],
         ];
     }
@@ -199,7 +202,8 @@ function getLink(LinkManager $manager, int $id): string {
         'user' => [
             'id' => $link->getUserFk()->getId(),
             'firstname' => $link->getUserFk()->getFirstname(),
-            'lastname' => $link->getUserFk()->getLastname()
+            'lastname' => $link->getUserFk()->getLastname(),
+            'role' => $link->getUserFk()->getRoleFk()
         ],
     ];
     return json_encode($response);
