@@ -1,6 +1,9 @@
 <?php
 namespace Chloe\LinksHandler\Model\Manager;
 
+require_once "Traits/ManagerTrait.php";
+require_once "RoleManager.php";
+
 use Chloe\LinksHandler\Model\DB;
 use Chloe\LinksHandler\Model\Entity\User;
 use Chloe\LinksHandler\Model\Manager\Traits\ManagerTrait;

@@ -15,7 +15,7 @@
         </select>
         <label for="name">Nom du lien</label>
         <input type="text" id="name" name="name" required>
-        <input type="hidden" name="user_fk" value="<?=$_SESSION['id']?>">
-        <input type="submit" name="submit" value="Ajouter" class="button">
+        <input type="hidden" id="user_fk" name="user_fk" value="<?=$_SESSION['id']?>">
+        <input id="createLink" type="submit" name="submit" value="Ajouter" class="button">
     </form>
 </main>

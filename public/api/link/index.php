@@ -1,11 +1,11 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/DB.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/Entity/User.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/Entity/Link.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/Manager/UserManager.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/Manager/LinkManager.php';
-
+require_once '../../../src/Model/DB.php';
+require_once '../../../src/Model/Entity/Link.php';
+require_once '../../../src/Model/Entity/User.php';
+require_once '../../../src/Model/Entity/Role.php';
+require_once '../../../src/Model/Manager/LinkManager.php';
+require_once '../../../src/Model/Manager/UserManager.php';
 
 use Chloe\LinksHandler\Model\Entity\Link;
 use Chloe\LinksHandler\Model\Manager\LinkManager;
@@ -18,13 +18,9 @@ $manager = new LinkManager();
 
 switch($requestType) {
     case 'GET':
-        if (isset($_GET['id'])) {
-            echo getLink($manager, intval($_GET['id']));
-        }
-        else {
             echo getLinks($manager);
-        }
         break;
+
     case 'POST':
         $response = [
             'error' => 'success',
@@ -32,23 +28,24 @@ switch($requestType) {
         ];
 
         $data = json_decode(file_get_contents('php://input'));
-        if(isset($data->href, $data->title, $data->target, $data->name, $data->click, $data->user_fk)) {
+        if (isset($data->href, $data->title, $data->target, $data->name, $data->user_fk)) {
             $userManager = new UserManager();
 
             $href = htmlentities(trim($data->href));
             $title = htmlentities(trim(ucfirst($data->title)));
             $target = htmlentities(trim($data->target));
             $name = htmlentities(trim(ucfirst($data->name)));
+            $image = thumbalizr($data->href);
             $user_fk = intval($data->user_fk);
 
             if (filter_var($href, FILTER_VALIDATE_URL)) {
                 $user_fk = $userManager->getUser($user_fk);
                 if ($user_fk->getId()) {
-                    $link = new Link(null, $href, $title, $target, $name, null, $user_fk);
+                    $link = new Link(null, $href, $title, $target, $name, $image, null, $user_fk);
                     $result = $manager->add($link);
                     if (!$result) {
                         $response = [
-                            'error' => 'danger',
+                            'error' => 'error1',
                             'message' => 'Une erreur est survenue',
                         ];
                     }
@@ -56,7 +53,7 @@ switch($requestType) {
             }
             else {
                 $response = [
-                    'error' => 'danger',
+                    'error' => 'error2',
                     'message' => 'L\'url n\'est pas valide',
                 ];
             }
@@ -64,12 +61,13 @@ switch($requestType) {
         }
         else {
             $response = [
-                'error' => 'danger',
+                'error' => 'error3',
                 'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant',
             ];
         }
         echo json_encode($response);
         break;
+
     case 'PUT':
         $response = [
             'error' => 'success',
@@ -77,43 +75,41 @@ switch($requestType) {
         ];
 
         $data = json_decode(file_get_contents('php://input'));
+        if (isset($data->id, $data->href, $data->title, $data->target, $data->name)) {
 
-        if (isset($_SESSION['id'])) {
-            if (isset($data->id, $data->href, $data->title, $data->target, $data->name)) {
-                $manager = new LinkManager();
+            $id = intval($data->id);
+            $href = htmlentities(trim($data->href));
+            $title = htmlentities(trim(ucfirst($data->title)));
+            $target = htmlentities(trim($data->target));
+            $name = htmlentities(trim(ucfirst($data->name)));
+            $image = thumbalizr($data->href);
 
-                $id = intval($data->id);
-                $href = htmlentities(trim($data->href));
-                $title = htmlentities(trim(ucfirst($data->title)));
-                $target = htmlentities(trim($data->target));
-                $name = htmlentities(trim(ucfirst($data->name)));
-
-                if (filter_var($href, FILTER_VALIDATE_URL)) {
-                    $link = new Link($id, $href, $title, $target, $name);
-                    $result = $manager->update($link);
-                    if (!$result) {
-                        $response = [
-                            'error' => 'danger',
-                            'message' => 'Une erreur est survenue',
-                        ];
-                    }
-                }
-                else {
+            if (filter_var($href, FILTER_VALIDATE_URL)) {
+                $link = new Link($id, $href, $title, $target, $name, $image);
+                $result = $manager->update($link);
+                if (!$result) {
                     $response = [
-                        'error' => 'danger',
-                        'message' => 'L\'url n\'est pas valide',
+                        'error' => 'error1',
+                        'message' => 'Une erreur est survenue',
                     ];
                 }
             }
             else {
                 $response = [
-                    'error' => 'danger',
-                    'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant',
+                    'error' => 'error2',
+                    'message' => 'L\'url n\'est pas valide',
                 ];
             }
         }
+        else {
+            $response = [
+                'error' => 'error3',
+                'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant',
+            ];
+        }
         echo json_encode($response);
         break;
+
     case 'DELETE':
         $response = [
             'error' => 'success',
@@ -121,27 +117,23 @@ switch($requestType) {
         ];
 
         $data = json_decode(file_get_contents('php://input'));
+        if (isset($data->id)) {
+            $manager = new LinkManager();
+            $id = intval($data->id);
+            $result = $manager->delete($id);
 
-        if (isset($_SESSION["id"])) {
-            if (isset($data->id)) {
-                $manager = new LinkManager();
-
-                $id = intval($data->id);
-
-                $result = $manager->delete($id);
-                if (!$result) {
-                    $response = [
-                        'error' => 'danger',
-                        'message' => 'Une erreur est survenue',
-                    ];
-                }
-            }
-            else {
+            if (!$result) {
                 $response = [
-                    'error' => 'danger',
-                    'message' => 'L\'id est manquant',
+                    'error' => 'error1',
+                    'message' => 'Une erreur est survenue',
                 ];
             }
+        }
+        else {
+            $response = [
+                'error' => 'error2',
+                'message' => 'L\'id est manquant',
+            ];
         }
         break;
 }
@@ -152,6 +144,18 @@ switch($requestType) {
  * @return false|string
  */
 function getLinks(LinkManager $manager): string {
+    $data = json_decode(file_get_contents('php://input'));
+    if (isset($data->id, $data->href, $data->target, $data->click)) {
+        $manager = new LinkManager();
+
+        $id = intval($data->id);
+        $href = $data->href;
+        $target = $data->target;
+        $click = intval($data->click) + 1;
+
+        $link = new Link($id, $href,'', $target, '', '', $click);
+        $manager->addClick($link);
+    }
     $response = [];
     $data = $manager->getLinks();
     foreach($data as $link) {
@@ -162,6 +166,8 @@ function getLinks(LinkManager $manager): string {
             'title' => $link->getTitle(),
             'target' => $link->getTarget(),
             'name' => $link->getName(),
+            'image' => $link->getImage(),
+            'click' => $link->getClick(),
             'user' => [
                 'id' => $link->getUserFk()->getId(),
                 'firstname' => $link->getUserFk()->getFirstname(),
@@ -187,6 +193,8 @@ function getLink(LinkManager $manager, int $id): string {
         'title' => $link->getTitle(),
         'target' => $link->getTarget(),
         'name' => $link->getName(),
+        'image' => $link->getImage(),
+        'click' => $link->getClick(),
         'user' => [
             'id' => $link->getUserFk()->getId(),
             'firstname' => $link->getUserFk()->getFirstname(),
@@ -196,4 +204,18 @@ function getLink(LinkManager $manager, int $id): string {
     return json_encode($response);
 }
 
-exit;
+// Integration of the thumbalizr function to be able to integrate thumbnails directly on my website
+function thumbalizr($url, $options = array()) {
+    $embed_key = "zFxVAff4lQewBOVFMDT7T2VYBXR";
+    $secret = 'K6YFjElYCQ6SGvuVztslN2GDx7Z';
+
+    $query = 'url=' . urlencode($url);
+
+    foreach($options as $key => $value) {
+        $query .= '&' . trim($key) . '=' . urlencode(trim($value));
+
+    }
+    $token = md5($query . $secret);
+
+    return "https://api.thumbalizr.com/api/v1/embed/$embed_key/$token/?$query";
+}

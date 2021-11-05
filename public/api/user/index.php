@@ -1,8 +1,8 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/DB.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/Entity/User.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/Model/Manager/UserManager.php';
+require_once '../../../src/Model/DB.php';
+require_once '../../../src/Model/Entity/User.php';
+require_once '../../../src/Model/Manager/UserManager.php';
 
 
 use Chloe\LinksHandler\Model\Entity\User;
@@ -15,7 +15,9 @@ $manager = new UserManager();
 
 switch ($requestType) {
     case 'GET':
-        echo getUser($manager, intval($_GET['id']));
+        if(isset($_GET['id'])) {
+            echo getUser($manager, intval($_GET['id']));
+        }
         break;
 }
 

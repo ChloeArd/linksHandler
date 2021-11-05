@@ -17,7 +17,7 @@ class HomeController {
     public function homePage($link) {
         $manager = new LinkManager();
         $links = $manager->getLinks();
-        if (isset($link['id'], $link['href'], $link['target'], $link['click'])) {
+        /**if (isset($link['id'], $link['href'], $link['target'], $link['click'])) {
             $manager = new LinkManager();
 
             $id = intval($link['id']);
@@ -25,10 +25,10 @@ class HomeController {
             $target = $link['target'];
             $click = intval($link['click']) + 1;
 
-            $link = new Link($id, $href,'', $target, '', $click);
+            $link = new Link($id, $href,'', $target, '', '', $click);
             $manager->addClick($link);
             header("Location: $href");
-        }
+        }*/
         $this->return("homeView", "Links Handler", ['links' => $links]);
 
     }

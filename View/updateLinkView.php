@@ -37,8 +37,8 @@ $link = $manager->getLinkId($id);?>
                 </select>
                 <label for="name">Nom du lien</label>
                 <input type="text" id="name" name="name" value="<?=$value->getName()?>" required>
-                <input type="hidden" name="id" value="<?=$id?>">
-                <input type="submit" name="submit" value="Modifier" class="button">
+                <input id="id" type="hidden" name="id" value="<?=$id?>">
+                <input id="updateLink" type="submit" name="submit" value="Modifier" class="button">
             <?php
             }
             ?>
