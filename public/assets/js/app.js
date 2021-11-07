@@ -19,20 +19,22 @@ if (sessionStorage.role !== "2" && sessionStorage.role !== "") {
 $.get("../../api/link", function (response) {
     for ($i = 0; $i < response.length; $i++) {
         $("#homeLinks").append(`
-        <div class="linkContainer" id="click` + [$i] + `">
-            <input id="id" type="hidden" name="id" value='${response[$i].id}'>
-            <input id="href" type="hidden" name="href" value='${response[$i].href}'>
-            <input id="target" type="hidden" name="target" value='${response[$i].target}'>
-            <input id="click" type="hidden" name="click" value='${response[$i].click}'>
+        <div class="linkContainer" >
+            <form method="post" class="width100">
+                <input id="id" type="hidden" name="id" value='${response[$i].id}'>
+                <input id="href" type="hidden" name="href" value='${response[$i].href}'>
+                <input id="target" type="hidden" name="target" value='${response[$i].target}'>
+                <input id="click" type="hidden" name="click" value='${response[$i].click}'>
                 <div id="container1" class="flexColumn width100">
                     <div id="containerPicture">
                         <img src="${response[$i].image}" alt='${response[$i].title}'>
                     </div>
                     <div id="containerLink" class="flexCenter">
-                        <input class="buttonLink" type="submit" name="send" value='${response[$i].name}'>
+                        <input id="click` + [$i] + `" class="buttonLink" type="submit" name="send" value='${response[$i].name}'>
                     </div>
                 </div>
-            </div>
+            </form>
+        </div>
         `);
 
         // checks if the role of the user who is logged in is different from 2
@@ -51,12 +53,34 @@ $.get("../../api/link", function (response) {
         });
 
         // When I click on a link I get the link id and redirect the user to the correct link
-        $("#click" + $i).click(function () {
+        $("#click" + $i).click(function (e) {
                 $x = $(this).attr("id");
                 $recupId = $x.replace("click", "");
                 $href = response[parseInt($recupId)].href;
                 $target = response[parseInt($recupId)].target;
-                window.open($href, $target);
+
+            e.preventDefault();
+            $id1 = response[parseInt($recupId)].id;
+            $href1 = response[parseInt($recupId)].href;
+            $target1 = response[parseInt($recupId)].target;
+            $click1 = response[parseInt($recupId)].click;
+
+            if ($id1 && $href1 && $target1 && $click1) {
+                $xhr = new XMLHttpRequest();
+                $xhr.onload = function () {
+                    $response = JSON.parse($xhr.responseText);
+                    window.open($href, $target);
+                }
+                $linkData = {
+                    'id': $id1,
+                    'href': $href1,
+                    'target': $target1,
+                    'click': $click1,
+                }
+                $xhr.open('PUT', '../../api/link');
+                $xhr.setRequestHeader('Content-Type', 'application/json');
+                $xhr.send(JSON.stringify($linkData));
+            }
         });
 
     }

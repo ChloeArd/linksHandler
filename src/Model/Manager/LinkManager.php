@@ -100,7 +100,7 @@ class LinkManager {
         $request->bindValue(':target', $link->getTarget());
         $request->bindValue(':name', $link->getName());
         $request->bindValue(':image', $link->getImage());
-        $request->bindValue(':click',0);
+        $request->bindValue(':click',$link->getClick());
         $request->bindValue(':user_fk', $link->getUserFk()->getId());
 
         return $request->execute() && DB::getInstance()->lastInsertId() != 0;

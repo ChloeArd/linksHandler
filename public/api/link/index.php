@@ -41,7 +41,7 @@ switch($requestType) {
             if (filter_var($href, FILTER_VALIDATE_URL)) {
                 $user_fk = $userManager->getUser($user_fk);
                 if ($user_fk->getId()) {
-                    $link = new Link(null, $href, $title, $target, $name, $image, null, $user_fk);
+                    $link = new Link(null, $href, $title, $target, $name, $image, 1, $user_fk);
                     $result = $manager->add($link);
                     if (!$result) {
                         $response = [
@@ -101,6 +101,17 @@ switch($requestType) {
                 ];
             }
         }
+        if (isset($data->id, $data->href, $data->target, $data->click)) {
+            $manager = new LinkManager();
+
+            $id = intval($data->id);
+            $href = $data->href;
+            $target = $data->target;
+            $click = intval($data->click) + 1;
+
+            $link = new Link($id, $href,'', $target, '', '', $click);
+            $manager->addClick($link);
+        }
         else {
             $response = [
                 'error' => 'error3',
@@ -145,18 +156,6 @@ switch($requestType) {
  * @return false|string
  */
 function getLinks(LinkManager $manager): string {
-    $data = json_decode(file_get_contents('php://input'));
-    /*if (isset($data->id, $data->href, $data->target, $data->click)) {
-        $manager = new LinkManager();
-
-        $id = intval($data->id);
-        $href = $data->href;
-        $target = $data->target;
-        $click = intval($data->click) + 1;
-
-        $link = new Link($id, $href,'', $target, '', '', $click);
-        $manager->addClick($link);
-    }*/
     $response = [];
     $data = $manager->getLinks();
     foreach($data as $link) {
