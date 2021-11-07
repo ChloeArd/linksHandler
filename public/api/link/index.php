@@ -146,7 +146,7 @@ switch($requestType) {
  */
 function getLinks(LinkManager $manager): string {
     $data = json_decode(file_get_contents('php://input'));
-    if (isset($data->id, $data->href, $data->target, $data->click)) {
+    /*if (isset($data->id, $data->href, $data->target, $data->click)) {
         $manager = new LinkManager();
 
         $id = intval($data->id);
@@ -156,7 +156,7 @@ function getLinks(LinkManager $manager): string {
 
         $link = new Link($id, $href,'', $target, '', '', $click);
         $manager->addClick($link);
-    }
+    }*/
     $response = [];
     $data = $manager->getLinks();
     foreach($data as $link) {

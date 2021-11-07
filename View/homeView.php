@@ -2,12 +2,14 @@
     <div id="homeLinks" class="width100 flexRow wrap flexCenter"></div>
 
     <?php
-    if ($_SESSION['id']) {
+    if (isset($_SESSION['id'])) {
         ?>
         <script>
+            sessionStorage.session = "open";
             //say that a user is logged in
-            sessionStorage.session = "ok";
-            sessionStorage.role = <?=$_SESSION['role_fk']?>
+            if (sessionStorage.session !== "close") {
+                sessionStorage.role = <?=$_SESSION['role_fk']?>
+            }
         </script>
     <?php
     }

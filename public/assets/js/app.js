@@ -1,3 +1,4 @@
+
 //say a user is logged out
 if ($("#disconnection")) {
     $("#disconnection").click(function (e) {
@@ -5,11 +6,20 @@ if ($("#disconnection")) {
     });
 }
 
+// Disconnects the user after 12 hours
+if (sessionStorage.role !== "2" && sessionStorage.role !== "") {
+    setTimeout(function () {
+        sessionStorage.role = "";
+        sessionStorage.session = "close";
+        window.location.href = "../assets/php/disconnection.php";
+    }, 43200000 );
+}
+
 // display all links
 $.get("../../api/link", function (response) {
     for ($i = 0; $i < response.length; $i++) {
         $("#homeLinks").append(`
-        <form method="post" action="" id="linkContainer">
+        <div class="linkContainer" id="click` + [$i] + `">
             <input id="id" type="hidden" name="id" value='${response[$i].id}'>
             <input id="href" type="hidden" name="href" value='${response[$i].href}'>
             <input id="target" type="hidden" name="target" value='${response[$i].target}'>
@@ -19,14 +29,14 @@ $.get("../../api/link", function (response) {
                         <img src="${response[$i].image}" alt='${response[$i].title}'>
                     </div>
                     <div id="containerLink" class="flexCenter">
-                        <input id="click${response[$i].id}" class="buttonLink" type="submit" name="send" value='${response[$i].name}'>
+                        <input class="buttonLink" type="submit" name="send" value='${response[$i].name}'>
                     </div>
                 </div>
-            </form>
-            `);
+            </div>
+        `);
 
         // checks if the role of the user who is logged in is different from 2
-        if(sessionStorage.role !== "2") {
+        if(sessionStorage.role !== "2" && sessionStorage.role !== "") {
             $("#homeLinks").append(`
             <div class="flexColumn edit">
                 <a href="../index.php?controller=link&action=update&id=${response[$i].id}"><i class="fas fa-pen-square"></i></a>
@@ -34,6 +44,21 @@ $.get("../../api/link", function (response) {
             </div>
         `);
         }
+
+        $(".containerLink").click(function(){
+            var x = $(this).attr("id");
+            console.log($(".buttonLink"));
+        });
+
+        // When I click on a link I get the link id and redirect the user to the correct link
+        $("#click" + $i).click(function () {
+                $x = $(this).attr("id");
+                $recupId = $x.replace("click", "");
+                $href = response[parseInt($recupId)].href;
+                $target = response[parseInt($recupId)].target;
+                window.open($href, $target);
+        });
+
     }
 });
 
