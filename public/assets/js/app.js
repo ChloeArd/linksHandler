@@ -54,11 +54,12 @@ $.get("../../api/link", function (response) {
 
         // When I click on a link I get the link id and redirect the user to the correct link
         $("#click" + $i).click(function (e) {
-                $x = $(this).attr("id");
-                $recupId = $x.replace("click", "");
-                $href = response[parseInt($recupId)].href;
-                $target = response[parseInt($recupId)].target;
+            $x = $(this).attr("id");
+            $recupId = $x.replace("click", "");
+            $href = response[parseInt($recupId)].href;
+            $target = response[parseInt($recupId)].target;
 
+            // add a click
             e.preventDefault();
             $id1 = response[parseInt($recupId)].id;
             $href1 = response[parseInt($recupId)].href;
