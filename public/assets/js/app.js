@@ -3,6 +3,7 @@
 if ($("#disconnection")) {
     $("#disconnection").click(function (e) {
         sessionStorage.role = "";
+        sessionStorage.session = "close";
     });
 }
 
@@ -14,6 +15,8 @@ if (sessionStorage.role !== "2" && sessionStorage.role !== "") {
         window.location.href = "../assets/php/disconnection.php";
     }, 21600000);
 }
+
+alert(sessionStorage.session);
 
 // display all links
 $.get("../../api/link", function (response) {
@@ -38,13 +41,15 @@ $.get("../../api/link", function (response) {
         `);
 
         // checks if the role of the user who is logged in is different from 2
-        if(sessionStorage.role !== "2" && sessionStorage.role !== "") {
-            $("#homeLinks").append(`
-            <div class="flexColumn edit">
-                <a href="../index.php?controller=link&action=update&id=${response[$i].id}"><i class="fas fa-pen-square"></i></a>
-                <a href="../index.php?controller=link&action=delete&id=${response[$i].id}"><i class="fas fa-trash-alt"></i></a>
-            </div>
-        `);
+        if (sessionStorage.role) {
+            if (sessionStorage.role !== "2" || sessionStorage.role !== "") {
+                $("#homeLinks").append(`
+                <div class="flexColumn edit">
+                    <a href="../index.php?controller=link&action=update&id=${response[$i].id}"><i class="fas fa-pen-square"></i></a>
+                    <a href="../index.php?controller=link&action=delete&id=${response[$i].id}"><i class="fas fa-trash-alt"></i></a>
+                </div>
+                `);
+            }
         }
 
         $(".containerLink").click(function(){
