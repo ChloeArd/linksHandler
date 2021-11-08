@@ -16,6 +16,7 @@
       "ext-pdo": "*",
         "symfony/mailer": "^5.3",
         "symfony/twig-bridge": "^5.3",
-        "symfony/sendgrid-mailer": "^5.3"
+        "symfony/sendgrid-mailer": "^5.3",
+      "ext-json": "*"
     }
 }

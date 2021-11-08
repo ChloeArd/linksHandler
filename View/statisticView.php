@@ -10,7 +10,7 @@
                 <?php
             }
             ?>
-            <a href="../assets/php/disconnection.php" class="border center">Déconnexion</a>
+            <a href="../assets/php/disconnection.php" id="disconnection" class="border center">Déconnexion</a>
         </div>
 
         <div class="border width80 margB">
@@ -30,7 +30,7 @@
 
                 <h2>Le nombre de fois où un lien a été visité</h2>
                 <canvas id="myChart"></canvas>
-                <script src="../assets/js/app.js" type="module"></script>
+                <script src="../assets/js/graph1.js" type="module"></script>
 
                 <?php
                 $name = [];
@@ -79,7 +79,7 @@
                 <canvas id="myPie"></canvas>
 
             </div>
-            <script src="../assets/js/pie.js" type="module"></script>
+            <script src="../assets/js/graph2.js" type="module"></script>
 
             <?php
             $linkHref = [];

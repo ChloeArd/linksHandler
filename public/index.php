@@ -3,59 +3,68 @@ session_start();
 
 require dirname(__FILE__) . '/../vendor/autoload.php';
 
-require_once dirname(__FILE__) . '/../src/Controller/Traits/ReturnViewTrait.php';
-
-use Chloe\LinksHandler\Controller\HomeController;
-use Chloe\LinksHandler\Controller\LinkController;
-use Chloe\LinksHandler\Controller\UserController;
+use Chloe\LinksHandler\Model\Manager\LinkManager;
 
 if (isset($_GET['controller'])) {
     switch ($_GET['controller']) {
         case 'home' :
-            $controller = new HomeController();
             if (isset($_GET['page'])) {
                 switch ($_GET['page']) {
                     case 'connection' :
-                        $controller->connection();
+                        page("connectionView", "Connexion");
                         break;
                     case 'registration' :
-                        $controller->registration();
+                        page("registrationView", "Inscription");
                         break;
                     case 'contact' :
-                        $controller->contact();
+                        page("contactView", "Contact");
                         break;
                 }
             }
         case 'link' :
-            $controller = new LinkController();
             if (isset($_GET['action'])) {
                 switch ($_GET['action']) {
                     case 'add' :
-                        $controller->add($_POST);
+                        if (isset($_SESSION['id'])) {
+                            page("createLinkView", "Ajouter un lien");
+                        }
                         break;
                     case 'update':
-                        $controller->update($_POST);
+                        if (isset($_SESSION['id'])) {
+                            page("updateLinkView", "Modifier un lien");
+                        }
                         break;
                     case 'delete':
-                        $controller->delete($_POST);
+                        if (isset($_SESSION["id"])) {
+                            page("deleteLinkView", "Suppirmer un lien");
+                        }
                         break;
                 }
             }
         case 'user' :
-            $controller = new UserController();
             if (isset($_GET['action'])) {
                 switch ($_GET['action']) {
                     case 'account':
-                        $controller->account();
+                        page("accountView", "Mon compte");
                         break;
                     case 'statistic':
-                        $controller->statistic();
+                        $linkManager = new LinkManager();
+                        $stat1 = $linkManager->getLinks();
+                        page("statisticView", "Mes statistiques", ["stat1" => $stat1]);
                         break;
                 }
             }
     }
 }
 else {
-    $controller = new HomeController();
-    $controller->homePage($_POST);
+    $manager = new LinkManager();
+    $links = $manager->getLinks();
+    page("homeView", "Links Handler", ['links' => $links]);
+}
+
+function page(string $view, string $title, array $var = null) {
+    ob_start();
+    require_once dirname(__FILE__) . "/../View/$view.php";
+    $html = ob_get_clean();
+    require_once dirname(__FILE__) . "/../View/_Partials/structureView.php";
 }

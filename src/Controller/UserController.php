@@ -12,13 +12,9 @@ class UserController {
      * Display a account page
      */
     public function account() {
-        $this->return("accountView", "Mon compte");
     }
 
     public function statistic() {
-        $linkManager = new LinkManager();
-        $stat1 = $linkManager->getLinks();
 
-        $this->return("statisticView", "Mes statistiques", ["stat1" => $stat1]);
     }
 }

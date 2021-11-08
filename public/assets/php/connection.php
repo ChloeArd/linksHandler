@@ -30,7 +30,7 @@ if (isset($_POST["email"], $_POST["password"])) {
         $_SESSION['role_fk'] = $user['role_fk'];
         $id = $_SESSION['id'];
 
-        header("Location: ../../index.php?success=0&id=$id");
+        header("Location: ../../index.php?success=0");
     }
     else {
         header("Location: ../../index.php?controller=home&page=connection&error=0");
