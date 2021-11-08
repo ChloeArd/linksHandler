@@ -24,7 +24,7 @@ switch($requestType) {
     case 'POST':
         $response = [
             'error' => 'success',
-            'message' => 'Le lien a été crée avec succès',
+            'message' => 'Le lien a été crée avec succès.',
         ];
 
         $data = json_decode(file_get_contents('php://input'));
@@ -46,7 +46,7 @@ switch($requestType) {
                     if (!$result) {
                         $response = [
                             'error' => 'error1',
-                            'message' => 'Une erreur est survenue',
+                            'message' => 'Une erreur est survenue.',
                         ];
                     }
                 }
@@ -54,7 +54,7 @@ switch($requestType) {
             else {
                 $response = [
                     'error' => 'error2',
-                    'message' => 'L\'url n\'est pas valide',
+                    'message' => 'L\'url n\'est pas valide.',
                 ];
             }
 
@@ -62,7 +62,7 @@ switch($requestType) {
         else {
             $response = [
                 'error' => 'error3',
-                'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant',
+                'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant.',
             ];
         }
         echo json_encode($response);
@@ -71,7 +71,7 @@ switch($requestType) {
     case 'PUT':
         $response = [
             'error' => 'success',
-            'message' => 'Le lien a été modifié avec succès',
+            'message' => 'Le lien a été modifié avec succès.',
         ];
 
         $data = json_decode(file_get_contents('php://input'));
@@ -90,14 +90,14 @@ switch($requestType) {
                 if (!$result) {
                     $response = [
                         'error' => 'error1',
-                        'message' => 'Une erreur est survenue',
+                        'message' => 'Une erreur est survenue.',
                     ];
                 }
             }
             else {
                 $response = [
                     'error' => 'error2',
-                    'message' => 'L\'url n\'est pas valide',
+                    'message' => 'L\'url n\'est pas valide.',
                 ];
             }
         }
@@ -115,7 +115,7 @@ switch($requestType) {
         else {
             $response = [
                 'error' => 'error3',
-                'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant',
+                'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant.',
             ];
         }
         echo json_encode($response);
@@ -124,7 +124,7 @@ switch($requestType) {
     case 'DELETE':
         $response = [
             'error' => 'success',
-            'message' => 'Le lien a été supprimé avec succès',
+            'message' => 'Le lien a été supprimé avec succès.',
         ];
 
         $data = json_decode(file_get_contents('php://input'));
@@ -136,14 +136,14 @@ switch($requestType) {
             if (!$result) {
                 $response = [
                     'error' => 'error1',
-                    'message' => 'Une erreur est survenue',
+                    'message' => 'Une erreur est survenue.',
                 ];
             }
         }
         else {
             $response = [
                 'error' => 'error2',
-                'message' => 'L\'id est manquant',
+                'message' => 'L\'id est manquant.',
             ];
         }
         echo json_encode($response);
@@ -188,23 +188,28 @@ function getLinks(LinkManager $manager): string {
  * @param int $id
  * @return string
  */
-function getLink(LinkManager $manager, int $id): string {
-    $link = $manager->getLink($id);
-    $response[] = [
-        'id' => $link->getId(),
-        'href' => $link->getHref(),
-        'title' => $link->getTitle(),
-        'target' => $link->getTarget(),
-        'name' => $link->getName(),
-        'image' => $link->getImage(),
-        'click' => $link->getClick(),
-        'user' => [
-            'id' => $link->getUserFk()->getId(),
-            'firstname' => $link->getUserFk()->getFirstname(),
-            'lastname' => $link->getUserFk()->getLastname(),
-            'role' => $link->getUserFk()->getRoleFk()
-        ],
-    ];
+function getLinksUser(LinkManager $manager, int $id): string {
+    $data = $manager->getLinksUser($id);
+    foreach($data as $link) {
+        /* @var Link $link */
+        $response[] = [
+            'id' => $link->getId(),
+            'href' => $link->getHref(),
+            'title' => $link->getTitle(),
+            'target' => $link->getTarget(),
+            'name' => $link->getName(),
+            'image' => $link->getImage(),
+            'click' => $link->getClick(),
+            'user' => [
+                'id' => $link->getUserFk()->getId(),
+                'firstname' => $link->getUserFk()->getFirstname(),
+                'lastname' => $link->getUserFk()->getLastname(),
+                'role' => [
+                    'id' => $link->getUserFk()->getRoleFk()->getId(),
+                ]
+            ],
+        ];
+    }
     return json_encode($response);
 }
 

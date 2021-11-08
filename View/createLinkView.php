@@ -7,7 +7,7 @@
         <input type="text" id="title" name="title" required>
         <label for="target">Où afficher l'URL liée</label>
         <select id="target" name="target" required>
-            <option value="">--Choisi une option--</option>
+            <option value="">--Choisir une option--</option>
             <option value="_self">Le contexte de navigation actuel</option>
             <option value="_blank">Un nouvel onglet</option>
             <option value="_parent">Le contexte de navigation parent de celui en cours</option>

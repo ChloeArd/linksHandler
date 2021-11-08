@@ -4,6 +4,7 @@
     <div id="containerAccount" class="flexRow width90">
         <div class="flexColumn width20">
             <a href="../../index.php?controller=user&action=account" class="border center">Mes informations</a>
+            <a href="../../index.php?controller=link&action=myLink&id=<?=$_SESSION['id']?>" class="border center">Mes Liens</a>
             <?php
             if ($_SESSION['role_fk'] == 1) {?>
                 <a href="../../index.php?controller=user&action=statistic" class="border center">Mes statistiques</a>

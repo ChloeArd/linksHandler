@@ -3,14 +3,23 @@
 if ($("#disconnection")) {
     $("#disconnection").click(function (e) {
         sessionStorage.role = "";
+        sessionStorage.id = "";
+        sessionStorage.session = "close";
+    });
+}
+else if ($("#deleteUser")) {
+    $("#deleteUser").click(function (e) {
+        sessionStorage.role = "";
+        sessionStorage.id = "";
         sessionStorage.session = "close";
     });
 }
 
 // Disconnects the user after 6 hours
-if (sessionStorage.role !== "2" && sessionStorage.role !== "") {
+if (sessionStorage.session === "open") {
     setTimeout(function () {
         sessionStorage.role = "";
+        sessionStorage.id = "";
         sessionStorage.session = "close";
         window.location.href = "../assets/php/disconnection.php";
     }, 21600000);
@@ -40,7 +49,7 @@ $.get("../../api/link", function (response) {
 
         // checks if the role of the user who is logged in is different from 2
         if (sessionStorage.role) {
-            if (sessionStorage.role !== "2" || sessionStorage.role !== "") {
+            if (sessionStorage.role === "1" || sessionStorage.role === "3") {
                 $("#homeLinks").append(`
                 <div class="flexColumn edit">
                     <a href="../index.php?controller=link&action=update&id=${response[$i].id}"><i class="fas fa-pen-square"></i></a>
@@ -49,11 +58,6 @@ $.get("../../api/link", function (response) {
                 `);
             }
         }
-
-        $(".containerLink").click(function(){
-            var x = $(this).attr("id");
-            console.log($(".buttonLink"));
-        });
 
         // When I click on a link I get the link id and redirect the user to the correct link
         $("#click" + $i).click(function (e) {
@@ -87,6 +91,51 @@ $.get("../../api/link", function (response) {
             }
         });
 
+    }
+});
+
+// Display all links of a user
+$.get("../../api/link", function (response) {
+    for ($i = 0; $i < response.length; $i++) {
+        if (sessionStorage.id) {
+            if (sessionStorage.id == response[$i].user['id']) {
+                $("#myLink").append(`
+                <div class="linkContainer" >
+                    <form method="post" class="width100">
+                        <input id="id" type="hidden" name="id" value='${response[$i].id}'>
+                        <input id="href" type="hidden" name="href" value='${response[$i].href}'>
+                        <input id="target" type="hidden" name="target" value='${response[$i].target}'>
+                        <input id="click" type="hidden" name="click" value='${response[$i].click}'>
+                        <div id="container1" class="flexColumn width100">
+                            <div id="containerPicture">
+                                <img src="${response[$i].image}" alt='${response[$i].title}'>
+                            </div>
+                            <div id="containerLink" class="flexCenter">
+                                <input id="click` + [$i] + `" class="buttonLink" type="submit" name="send" value='${response[$i].name}'>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                `);
+            }
+        }
+
+        // checks if the role of the user who is logged in is different from 2
+        if (sessionStorage.id) {
+            if (sessionStorage.id == response[$i].user['id']) {
+                $("#myLink").append(`
+                <div class="flexColumn edit">
+                    <a href="../index.php?controller=link&action=update&id=${response[$i].id}"><i class="fas fa-pen-square"></i></a>
+                    <a href="../index.php?controller=link&action=delete&id=${response[$i].id}"><i class="fas fa-trash-alt"></i></a>
+                </div>
+                `);
+            }
+        }
+
+        $(".containerLink").click(function(){
+            var x = $(this).attr("id");
+            console.log($(".buttonLink"));
+        });
     }
 });
 
@@ -225,6 +274,126 @@ if ($("#deleteLink")) {
                 'id': $id
             }
             $xhr.open('DELETE', '../../api/link');
+            $xhr.setRequestHeader('Content-Type', 'application/json');
+            $xhr.send(JSON.stringify($linkData));
+        }
+    });
+}
+
+// update info of user
+if ($("#updateUser")) {
+    $("#updateUser").click(function (e) {
+        e.preventDefault();
+        $id = $("#id").val();
+        $firstname = $("#firstname").val();
+        $lastname = $("#lastname").val();
+        $email = $("#email").val();
+
+        if ($id && $firstname && $lastname && $email) {
+            $xhr = new XMLHttpRequest();
+            $xhr.onload = function () {
+                $response = JSON.parse($xhr.responseText);
+                if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
+                    if ($response.error === "success") {
+                        window.location.href = "index?controller=user&action=account&success=0";
+                    }
+                    if ($response.error === "error1") {
+                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=1";
+                    }
+                    if ($response.error === "error2") {
+                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=2";
+                    }
+                    if ($response.error === "error3") {
+                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=3";
+                    }
+                }
+            }
+            $linkData = {
+                'id': $id,
+                'firstname': $firstname,
+                'lastname': $lastname,
+                'email': $email
+            }
+            $xhr.open('PUT', '../../api/user');
+            $xhr.setRequestHeader('Content-Type', 'application/json');
+            $xhr.send(JSON.stringify($linkData));
+        }
+    });
+}
+
+// update password of user
+if ($("#updatePassUser")) {
+    $("#updatePassUser").click(function (e) {
+        e.preventDefault();
+        $id = $("#id").val();
+        $passN = $("#passN").val();
+        $pass = $("#pass").val();
+        $passR = $("#passR").val();
+
+        if ($id && $passN && $pass && $passR) {
+            $xhr = new XMLHttpRequest();
+            $xhr.onload = function () {
+                $response = JSON.parse($xhr.responseText);
+                if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
+                    if ($response.error === "success") {
+                        window.location.href = "index?controller=user&action=account&success=0";
+                    }
+                    if ($response.error === "error1") {
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=1";
+                    }
+                    if ($response.error === "error2") {
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=2";
+                    }
+                    if ($response.error === "error3") {
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=3";
+                    }
+                    if ($response.error === "error4") {
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=4";
+                    }
+                    if ($response.error === "error5") {
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=5";
+                    }
+                }
+            }
+            $linkData = {
+                'id': $id,
+                'passN': $passN,
+                'pass': $pass,
+                'passR': $passR
+            }
+            $xhr.open('PUT', '../../api/user2');
+            $xhr.setRequestHeader('Content-Type', 'application/json');
+            $xhr.send(JSON.stringify($linkData));
+        }
+    });
+}
+
+// delete a user
+if ($("#deleteUser")) {
+    $("#deleteUser").click(function (e) {
+        e.preventDefault();
+        $id = $("#id").val();
+
+        if ($id) {
+            $xhr = new XMLHttpRequest();
+            $xhr.onload = function () {
+                $response = JSON.parse($xhr.responseText);
+                if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
+                    if ($response.error === "success") {
+                        window.location.href = "index?success=2";
+                    }
+                    if ($response.error === "error1") {
+                        window.location.href = "index.php?controller=user&action=delete&id=" + $id + "&error=1";
+                    }
+                    if ($response.error === "error2") {
+                        window.location.href = "index.php?controller=user&action=delete&id=" + $id + "&error=2";
+                    }
+                }
+            }
+            $linkData = {
+                'id': $id
+            }
+            $xhr.open('DELETE', '../../api/user');
             $xhr.setRequestHeader('Content-Type', 'application/json');
             $xhr.send(JSON.stringify($linkData));
         }

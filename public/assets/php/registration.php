@@ -15,7 +15,7 @@ if (isset($_POST["firstname"], $_POST['lastname'], $_POST["email"], $_POST["pass
     // I encrypt the password.
     $encryptedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-    $requete = $bdd->prepare("SELECT * FROM prefix_user WHERE email = :email");
+    $requete = $bdd->prepare("SELECT * FROM f07409276b_user WHERE email = :email");
     $requete->bindParam(":email", $email);
     $state = $requete->execute();
 
@@ -43,7 +43,7 @@ if (isset($_POST["firstname"], $_POST['lastname'], $_POST["email"], $_POST["pass
                         $key.= mt_rand(0,9);
                     }
 
-                    $sql = $bdd->prepare("INSERT INTO prefix_user (firstname, lastname, email, password, role_fk) 
+                    $sql = $bdd->prepare("INSERT INTO f07409276b_user (firstname, lastname, email, password, role_fk) 
                         VALUES (:firstname, :lastname, :email, :password, :role_fk)");
 
                     $sql->bindValue(':firstname', $firstname);

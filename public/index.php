@@ -24,6 +24,11 @@ if (isset($_GET['controller'])) {
         case 'link' :
             if (isset($_GET['action'])) {
                 switch ($_GET['action']) {
+                    case 'myLink' :
+                        if (isset($_SESSION['id'])) {
+                            page("accountLinkView", "Mes liens");
+                        }
+                        break;
                     case 'add' :
                         if (isset($_SESSION['id'])) {
                             page("createLinkView", "Ajouter un lien");
@@ -51,6 +56,27 @@ if (isset($_GET['controller'])) {
                         $linkManager = new LinkManager();
                         $stat1 = $linkManager->getLinks();
                         page("statisticView", "Mes statistiques", ["stat1" => $stat1]);
+                        break;
+                    case 'update':
+                        if (isset($_GET['id'])) {
+                            if ($_GET['id'] === $_SESSION['id']) {
+                                page("updateUserView", "Modifier mes informations");
+                            }
+                        }
+                        break;
+                    case 'updatePass':
+                        if (isset($_GET['id'])) {
+                            if ($_GET['id'] === $_SESSION['id']) {
+                                page("updatePassUserView", "Changer mon mot de passe");
+                            }
+                        }
+                        break;
+                    case 'delete':
+                        if (isset($_GET['id'])) {
+                            if ($_GET['id'] === $_SESSION['id']) {
+                                page("deleteUserView", "Supprimer mon compte");
+                            }
+                        }
                         break;
                 }
             }

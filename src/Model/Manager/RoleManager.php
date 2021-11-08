@@ -14,7 +14,7 @@ class RoleManager {
      * @param int $id
      */
     public function getRole(int $id) {
-        $request = DB::getInstance()->prepare("SELECT * FROM prefix_role WHERE id = $id");
+        $request = DB::getInstance()->prepare("SELECT * FROM f07409276b_role WHERE id = $id");
         $request->execute();
         $info = $request->fetch();
         $role = new Role();
@@ -31,7 +31,7 @@ class RoleManager {
      */
     public function getRoles(): array {
         $roles = [];
-        $request = DB::getInstance()->prepare("SELECT * FROM prefix_role");
+        $request = DB::getInstance()->prepare("SELECT * FROM f07409276b_role");
         $request->execute();
         $roles_response = $request->fetchAll();
         if($roles_response) {

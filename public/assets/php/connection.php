@@ -10,7 +10,7 @@ if (isset($_POST["email"], $_POST["password"])) {
     $pass = htmlentities(trim($_POST['password']));
 
     // I get the name of the user
-    $stmt = $bdd->prepare("SELECT * FROM prefix_user WHERE email = :email");
+    $stmt = $bdd->prepare("SELECT * FROM f07409276b_user WHERE email = :email");
     $stmt->bindParam(":email", $mail);
     $stmt->execute();
 
@@ -19,7 +19,7 @@ if (isset($_POST["email"], $_POST["password"])) {
         // If the 2 password correspond then we open the session and we store the user's data in a session.
         session_start();
 
-        $timeSession = 60 * 60 * 5; // session ends after 5 hours
+        $timeSession = 60 * 60 * 6; // session ends after 6 hours
         session_set_cookie_params($timeSession);
 
         $_SESSION['id'] = $user['id'];

@@ -8,7 +8,8 @@
             sessionStorage.session = "open";
             //say that a user is logged in
             if (sessionStorage.session !== "close") {
-                sessionStorage.role = <?=$_SESSION['role_fk']?>
+                sessionStorage.role = <?=$_SESSION['role_fk']?>;
+                sessionStorage.id = <?=$_SESSION['id']?>;
             }
         </script>
     <?php
