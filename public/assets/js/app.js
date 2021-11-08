@@ -6,13 +6,13 @@ if ($("#disconnection")) {
     });
 }
 
-// Disconnects the user after 12 hours
+// Disconnects the user after 6 hours
 if (sessionStorage.role !== "2" && sessionStorage.role !== "") {
     setTimeout(function () {
         sessionStorage.role = "";
         sessionStorage.session = "close";
         window.location.href = "../assets/php/disconnection.php";
-    }, 43200000 );
+    }, 21600000);
 }
 
 // display all links
