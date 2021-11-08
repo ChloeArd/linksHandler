@@ -26,7 +26,7 @@ class LinkManager {
      * @return Link
      */
     public function getLink( $id): Link {
-        $request = DB::getInstance()->prepare("SELECT * FROM prefix_link WHERE id = :id");
+        $request = DB::getInstance()->prepare("SELECT * FROM f07409276b_link WHERE id = :id");
         $id = intval($id);
         $request->bindParam(":id", $id);
         $request->execute();
@@ -52,7 +52,7 @@ class LinkManager {
      */
     public function getLinks(): array {
         $link = [];
-        $request = DB::getInstance()->prepare("SELECT * FROM prefix_link ORDER by id DESC");
+        $request = DB::getInstance()->prepare("SELECT * FROM f07409276b_link ORDER by id DESC");
         if($request->execute()) {
             foreach ($request->fetchAll() as $info) {
                 $user = UserManager::getManager()->getUser($info['user_fk']);
@@ -71,8 +71,28 @@ class LinkManager {
      */
     public function getLinkId(int $id): array {
         $link = [];
-        $request = DB::getInstance()->prepare("SELECT * FROM prefix_link WHERE id = :id");
+        $request = DB::getInstance()->prepare("SELECT * FROM f07409276b_link WHERE id = :id");
         $request->bindValue(":id", $id);
+        if($request->execute()) {
+            foreach ($request->fetchAll() as $info) {
+                $user = UserManager::getManager()->getUser($info['user_fk']);
+                if($user->getId()) {
+                    $link[] = new Link($info['id'], $info['href'], $info['title'], $info['target'], $info['name'], $info['image'], $info['click'], $user);
+                }
+            }
+        }
+        return $link;
+    }
+
+    /**
+     * displays all the links the user has created
+     * @param int $id
+     * @return array
+     */
+    public function getLinksUser(int $id): array {
+        $link = [];
+        $request = DB::getInstance()->prepare("SELECT * FROM f07409276b_link WHERE user_fk = :user_fk ORDER by id DESC");
+        $request->bindValue(":user_fk", $id);
         if($request->execute()) {
             foreach ($request->fetchAll() as $info) {
                 $user = UserManager::getManager()->getUser($info['user_fk']);
@@ -91,7 +111,7 @@ class LinkManager {
      */
     public function add (Link $link): bool {
         $request = DB::getInstance()->prepare("
-            INSERT INTO prefix_link (href, title, target, name, image, click, user_fk)
+            INSERT INTO f07409276b_link (href, title, target, name, image, click, user_fk)
                 VALUES (:href, :title, :target, :name, :image, :click, :user_fk) 
         ");
 
@@ -112,7 +132,7 @@ class LinkManager {
      * @return bool
      */
     public function update(Link $link): bool {
-        $request = DB::getInstance()->prepare("UPDATE prefix_link SET href = :href, title = :title, target = :target, name = :name, image = :image WHERE id = :id");
+        $request = DB::getInstance()->prepare("UPDATE f07409276b_link SET href = :href, title = :title, target = :target, name = :name, image = :image WHERE id = :id");
 
         $request->bindValue(":id", $link->getId());
         $request->bindValue(":href", $link->setHref($link->getHref()));
@@ -125,7 +145,7 @@ class LinkManager {
     }
 
     public function addClick(Link $link): bool {
-        $request = DB::getInstance()->prepare("UPDATE prefix_link SET click = :click WHERE id = :id");
+        $request = DB::getInstance()->prepare("UPDATE f07409276b_link SET click = :click WHERE id = :id");
 
         $request->bindValue(":id", $link->getId());
         $request->bindValue(":click", $link->setClick($link->getClick()));
@@ -138,7 +158,7 @@ class LinkManager {
      * @param int $id
      */
     public function delete(int $id) : int {
-        $request = DB::getInstance()->prepare("DELETE FROM prefix_link WHERE id = :id");
+        $request = DB::getInstance()->prepare("DELETE FROM f07409276b_link WHERE id = :id");
         $request->bindValue(":id", $id);
         return $request->execute();
     }

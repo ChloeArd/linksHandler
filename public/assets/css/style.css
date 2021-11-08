@@ -210,6 +210,27 @@ h1 {
     text-align: center;
 }
 
+header {
+    border-bottom: 3px solid #F2F2F2;
+}
+
+.auto {
+    margin: auto;
+}
+
+.button3:hover {
+    color: white;
+    font-weight: normal;
+}
+
+.delete {
+background-color: #e10404;
+}
+
+.delete:hover {
+background-color: #a20101;
+}
+
 h2 {
     font-weight: normal;
     margin: 15px;
@@ -219,6 +240,10 @@ h2 {
     background-color: #414040;
     color: white;
     font-weight: normal;
+}
+
+.grey {
+    color: #7E7E7E;
 }
 
 .margB {

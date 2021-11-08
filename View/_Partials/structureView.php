@@ -31,11 +31,12 @@
                 ?>
             </div>
 
-            <div id="account">
+            <div id="account" class="flexCenter flexColumn">
                 <?php
                 if (isset($_SESSION['id'])) {?>
                     <a href="../../index.php?controller=user&action=account"><i class="fas fa-user-circle"></i></a>
-                <?php
+                    <p class="grey"><?=$_SESSION['firstname']?></p>
+                    <?php
                 }
                 ?>
             </div>
