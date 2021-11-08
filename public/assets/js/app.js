@@ -16,8 +16,6 @@ if (sessionStorage.role !== "2" && sessionStorage.role !== "") {
     }, 21600000);
 }
 
-alert(sessionStorage.session);
-
 // display all links
 $.get("../../api/link", function (response) {
     for ($i = 0; $i < response.length; $i++) {
