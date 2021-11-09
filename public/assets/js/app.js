@@ -157,7 +157,7 @@ if ($("#createLink")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=0&message=" + $response.message;
+                        window.location.href = "index.php?success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
                         window.location.href = "index.php?controller=link&action=add&error=1&message=" + $response.message;
