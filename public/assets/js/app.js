@@ -200,7 +200,7 @@ if ($("#updateLink")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=0&message=" + $response.message;
+                        window.location.href = "index.php?success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
                         window.location.href = "index.php?controller=link&action=update&id=" + $id + "&error=1&message=" + $response.message;
@@ -239,7 +239,7 @@ if ($("#deleteLink")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=0&message=" + $response.message;
+                        window.location.href = "index.php?success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
                         window.location.href = "index.php?controller=link&action=delete&id=" + $id + "&error=1&message=" + $response.message;
@@ -274,7 +274,7 @@ if ($("#updateUser")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?controller=user&action=account&success=0&message=" + $response.message;
+                        window.location.href = "index.php?controller=user&action=account&success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
                         window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=1&message=" + $response.message;
@@ -315,7 +315,7 @@ if ($("#updatePassUser")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?controller=user&action=account&success=0&message=" + $response.message;
+                        window.location.href = "index.php?controller=user&action=account&success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
                         window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=1&message=" + $response.message;
@@ -359,7 +359,7 @@ if ($("#deleteUser")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=2&message=" + $response.message;
+                        window.location.href = "index.php?success=2&message=" + $response.message;
                                             }
                     if ($response.error === "error1") {
                         window.location.href = "index.php?controller=user&action=delete&id=" + $id + "&error=1&message=" + $response.message;
