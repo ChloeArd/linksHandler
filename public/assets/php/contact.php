@@ -15,5 +15,5 @@ if (isset($_POST["email"], $_POST["subject"], $_POST['message'])) {
 
     mail($to, $subject, $message, $headers, "-f " . $email);
 
-    header("Location: ../../index.php?controller=home&page=contact&success=0");
+    header("Location: ../../index.php?controller=home&page=contact&success=0&message=Envoyer%20avec%20succés");
 }

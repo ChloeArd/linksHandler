@@ -24,7 +24,7 @@ switch($requestType) {
     case 'POST':
         $response = [
             'error' => 'success',
-            'message' => 'Le lien a été crée avec succès.',
+            'message' => 'Le lien a été créé avec succès.',
         ];
 
         $data = json_decode(file_get_contents('php://input'));
