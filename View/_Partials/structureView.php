@@ -14,7 +14,10 @@
             <div id="addLink">
                 <?php
                 if (isset($_SESSION['id'])) {?>
-                    <a href="../../index.php?controller=link&action=add" class="flexCenter"><i class="fas fa-plus-square"></i>Ajouter un lien</a>
+                    <a href="../../index.php?controller=link&action=add" class="flexCenter">
+                        <i class="fas fa-plus-square"></i>
+                        <p class="center">Ajouter un lien</p>
+                    </a>
                     <?php
                 }
                 ?>

@@ -334,8 +334,8 @@ h2 {
     .linkContainer {
         width: 23%;
     }
-    #containerLink {
-        font-size: 17px;
+    .buttonLink {
+        font-size: 14px;
     }
 }
 
@@ -347,14 +347,7 @@ h2 {
 
 @media screen and (max-width: 670px) {
     .linkContainer {
-        width: 25%;
-        margin: 30px;
-    }
-}
-
-@media screen and (max-width: 450px) {
-    .linkContainer {
-        width: 80%;
+        width: 60%;
     }
     .fas {
         font-size: 30px;
@@ -372,9 +365,6 @@ h2 {
     .info2 {
         font-size: 15px;
     }
-}
-
-@media screen and (max-width: 600px) {
     #menu {
         font-size: 12px;
     }
