@@ -388,5 +388,8 @@ if ($searchParams.get("message")) {
     $("#closeModal").click(function () {
         $("#modal").css("display", "none");
     });
+    setTimeout(function () {
+        $("#modal").css("display", "none");
+    }, 5000);
 }
 
