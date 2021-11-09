@@ -101,6 +101,13 @@ switch($requestType) {
                 ];
             }
         }
+        else {
+            $response = [
+                'error' => 'error3',
+                'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant.',
+            ];
+        }
+
         if (isset($data->id, $data->href, $data->target, $data->click)) {
             $manager = new LinkManager();
 
@@ -112,12 +119,7 @@ switch($requestType) {
             $link = new Link($id, $href,'', $target, '', '', $click);
             $manager->addClick($link);
         }
-        else {
-            $response = [
-                'error' => 'error3',
-                'message' => 'Le lien, le titre, l\'affichage, ou le nom est manquant.',
-            ];
-        }
+
         echo json_encode($response);
         break;
 

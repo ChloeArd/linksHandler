@@ -77,9 +77,6 @@ a {
 }
 
 #containerPicture {
-    border-top: 4px solid #7E7E7E;
-    border-right: 4px solid #7E7E7E;
-    border-left: 4px solid #7E7E7E;
     margin-bottom: -6px;
     width: 100%;
 }
@@ -91,10 +88,12 @@ a {
 .linkContainer {
     width: 18%;
     margin: 40px;
+    box-shadow: 5px 5px 10px gray;
+
 }
 
 .linkContainer:hover {
-    box-shadow: 5px 5px 10px gray;
+    box-shadow: 10px 10px 10px #d2d2d2;
 }
 
 .linkContainer > form {
@@ -103,7 +102,6 @@ a {
 }
 
 #containerLink {
-    border: 4px solid #0067A0;
     color: #0067A0;
     font-size: 25px;
     background-color: #F2F2F2;
@@ -169,6 +167,10 @@ h1 {
 .info2 {
     background-color: #F2F2F2;
     padding: 5px;
+}
+
+.info2:hover {
+    background-color: #e5e5e5;
 }
 
 .borderNone {
@@ -275,6 +277,36 @@ h2 {
 
 .width90 {
     width: 90%;
+}
+
+.modal {
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    font-size: 22px;
+    background-color: #4E69B1;
+    color: white;
+    display: none;
+}
+
+.modal, #closeModal {
+    position: absolute;
+    z-index: 20;
+}
+
+#closeModal, .fa-times {
+    top: 2px;
+    right: 30px;
+    background-color: transparent;
+    color: black;
+    padding: 6px;
+    font-size: 17px;
+    border: none;
+}
+
+#closeModal:hover {
+    color: black;
 }
 
 @media screen and (max-width: 1680px) {

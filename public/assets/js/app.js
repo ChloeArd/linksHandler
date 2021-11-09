@@ -131,10 +131,12 @@ $.get("../../api/link", function (response) {
                 `);
             }
         }
-
-        $(".containerLink").click(function(){
-            var x = $(this).attr("id");
-            console.log($(".buttonLink"));
+        $("#click" + $i).click(function (e) {
+            $x = $(this).attr("id");
+            $recupId = $x.replace("click", "");
+            $href = response[parseInt($recupId)].href;
+            $target = response[parseInt($recupId)].target;
+            window.open($href, $target);
         });
     }
 });
@@ -155,16 +157,16 @@ if ($("#createLink")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=0";
+                        window.location.href = "index?success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
-                        window.location.href = "index.php?controller=link&action=add&error=1";
+                        window.location.href = "index.php?controller=link&action=add&error=1&message=" + $response.message;
                     }
                     if ($response.error === "error2") {
-                        window.location.href = "index.php?controller=link&action=add&error=2";
+                        window.location.href = "index.php?controller=link&action=add&error=2&message=" + $response.message;
                     }
                     if ($response.error === "error3") {
-                        window.location.href = "index.php?controller=link&action=add&error=3";
+                        window.location.href = "index.php?controller=link&action=add&error=3&message=" + $response.message;
                     }
                 }
             }
@@ -198,16 +200,16 @@ if ($("#updateLink")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=0";
+                        window.location.href = "index?success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
-                        window.location.href = "index.php?controller=link&action=update&id=" + $id + "&error=1";
+                        window.location.href = "index.php?controller=link&action=update&id=" + $id + "&error=1&message=" + $response.message;
                     }
                     if ($response.error === "error2") {
-                        window.location.href = "index.php?controller=link&action=update&id=" + $id + "&error=2";
+                        window.location.href = "index.php?controller=link&action=update&id=" + $id + "&error=2&message=" + $response.message;
                     }
                     if ($response.error === "error3") {
-                        window.location.href = "index.php?controller=link&action=update&id=" + $id + "&error=3";
+                        window.location.href = "index.php?controller=link&action=update&id=" + $id + "&error=3&message=" + $response.message;
                     }
                 }
             }
@@ -237,13 +239,13 @@ if ($("#deleteLink")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=0";
+                        window.location.href = "index?success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
-                        window.location.href = "index.php?controller=link&action=delete&id=" + $id + "&error=1";
+                        window.location.href = "index.php?controller=link&action=delete&id=" + $id + "&error=1&message=" + $response.message;
                     }
                     if ($response.error === "error2") {
-                        window.location.href = "index.php?controller=link&action=delete&id=" + $id + "&error=2";
+                        window.location.href = "index.php?controller=link&action=delete&id=" + $id + "&error=2&message=" + $response.message;
                     }
                 }
             }
@@ -272,16 +274,16 @@ if ($("#updateUser")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?controller=user&action=account&success=0";
+                        window.location.href = "index?controller=user&action=account&success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
-                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=1";
+                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=1&message=" + $response.message;
                     }
                     if ($response.error === "error2") {
-                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=2";
+                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=2&message=" + $response.message;
                     }
                     if ($response.error === "error3") {
-                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=3";
+                        window.location.href = "index.php?controller=user&action=update&id=" + $id + "&error=3&message=" + $response.message;
                     }
                 }
             }
@@ -313,22 +315,22 @@ if ($("#updatePassUser")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?controller=user&action=account&success=0";
+                        window.location.href = "index?controller=user&action=account&success=0&message=" + $response.message;
                     }
                     if ($response.error === "error1") {
-                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=1";
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=1&message=" + $response.message;
                     }
                     if ($response.error === "error2") {
-                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=2";
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=2&message=" + $response.message;
                     }
                     if ($response.error === "error3") {
-                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=3";
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=3&message=" + $response.message;
                     }
                     if ($response.error === "error4") {
-                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=4";
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=4&message=" + $response.message;
                     }
                     if ($response.error === "error5") {
-                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=5";
+                        window.location.href = "index.php?controller=user&action=updatePass&id=" + $id + "&error=5&message=" + $response.message;
                     }
                 }
             }
@@ -357,13 +359,13 @@ if ($("#deleteUser")) {
                 $response = JSON.parse($xhr.responseText);
                 if ($response.hasOwnProperty('error') && $response.hasOwnProperty('message')) {
                     if ($response.error === "success") {
-                        window.location.href = "index?success=2";
-                    }
+                        window.location.href = "index?success=2&message=" + $response.message;
+                                            }
                     if ($response.error === "error1") {
-                        window.location.href = "index.php?controller=user&action=delete&id=" + $id + "&error=1";
+                        window.location.href = "index.php?controller=user&action=delete&id=" + $id + "&error=1&message=" + $response.message;
                     }
                     if ($response.error === "error2") {
-                        window.location.href = "index.php?controller=user&action=delete&id=" + $id + "&error=2";
+                        window.location.href = "index.php?controller=user&action=delete&id=" + $id + "&error=2&message=" + $response.message;
                     }
                 }
             }
@@ -376,3 +378,15 @@ if ($("#deleteUser")) {
         }
     });
 }
+
+//Check if the url has to search for "message", if it is the case I display the modal window and I add the message and if I click on close modal I close the modal window
+$searchParams = new URLSearchParams(window.location.search);
+$param = $searchParams.get("message");
+if ($searchParams.get("message")) {
+    $("#modal").css("display", "flex");
+    $("#modal").html($param + "<button id='closeModal'><i class='fas fa-times'></i></button>");
+    $("#closeModal").click(function () {
+        $("#modal").css("display", "none");
+    });
+}
+
