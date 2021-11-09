@@ -30,12 +30,12 @@ if (isset($_POST["email"], $_POST["password"])) {
         $_SESSION['role_fk'] = $user['role_fk'];
         $id = $_SESSION['id'];
 
-        header("Location: ../../index.php?success=0");
+        header("Location: ../../index.php?success=0&message=Vous%20êtes%20connecté(e).");
     }
     else {
-        header("Location: ../../index.php?controller=home&page=connection&error=0");
+        header("Location: ../../index.php?controller=home&page=connection&error=0&message=Votre%20mot%20de%20passe%20ou%20votre%20email%20est%20incorrect.");
     }
 }
 else {
-    header("Location: ../../index.php?controller=home&page=connection&error=1");
+    header("Location: ../../index.php?controller=home&page=connection&error=1&message=Un%20des%20champs%20est%20vide.");
 }

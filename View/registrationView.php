@@ -1,5 +1,5 @@
 <main>
-    <h1 class="center">Connexion</h1>
+    <h1 class="center">Inscription</h1>
     <form method="post" action="../../assets/php/registration.php" class="flexColumn flexCenter width80 auto">
         <label for="firstname">Prénom</label>
         <input type="text" id="firstname" name="firstname" required>

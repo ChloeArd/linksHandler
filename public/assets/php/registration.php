@@ -23,7 +23,7 @@ if (isset($_POST["firstname"], $_POST['lastname'], $_POST["email"], $_POST["pass
         $user = $requete->fetch();
         // Checks if email or pseudo is not in use.
         if ($user['email'] === $email) {
-            header("Location: ../../index.php?controller=home&page=registration&error=0");
+            header("Location: ../../index.php?controller=home&page=registration&error=0&message=L'email%20est%20déjà%20utilisé.");
         }
         // Check if the email address is valid.
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -54,21 +54,21 @@ if (isset($_POST["firstname"], $_POST['lastname'], $_POST["email"], $_POST["pass
                     $sql->bindValue(':role_fk', 2);
                     $sql->execute();
 
-                    header("Location: ../../index.php?controller=home&page=connection&success=0");
+                    header("Location: ../../index.php?controller=home&page=connection&success=0&message=Vous%20êtes%20inscrit(e)s.");
                 }
                 else {
-                    header("Location: ../../index.php?controller=home&page=registration&error=2");
+                    header("Location: ../../index.php?controller=home&page=registration&error=2&message=%20mot%20de%20passe%20ne%20contient%20soit%20pas%20de%20minuscule,%20majuscule,%20chiffre%20ou%20est%20inférieur%20à%208%20caractères.");
                 }
             }
             else {
-                header("Location: ../../index.php?controller=home&page=registration&error=3");
+                header("Location: ../../index.php?controller=home&page=registration&error=3&message=Les%20mots%20de%20passes%20ne%20correspondent%20pas.");
             }
         }
         else {
-            header("Location: ../../View/registrationView.php?error=4");
+            header("Location: ../../View/registrationView.php?error=4&message=L'email%20est%20invalide.");
         }
     }
 }
 else {
-    header("Location: ../../View/registrationView.php?error=5");
+    header("Location: ../../View/registrationView.php?error=5&message=Un%20des%20champs%20est%20vide.");
 }
