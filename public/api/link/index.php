@@ -57,7 +57,6 @@ switch($requestType) {
                     'message' => 'L\'url n\'est pas valide.',
                 ];
             }
-
         }
         else {
             $response = [
