@@ -9,20 +9,24 @@ document.getElementById("graph1").addEventListener("click", function (){
     click.value;
 });
 
+// I recover the data
 let name1 = name.value;
 let click1 = click.value;
 
+// I get every word
 const words = name1.split(', ');
 const words2 = click1.split(', ');
 
 let arrayName = [];
 let arrayClick = []
 
+// I put each word in a table
 for (let i = 0; i < words.length; i++) {
     arrayName.push(words[i]);
     arrayClick.push(words2[i]);
 }
 
+// A graph that shows all the links created and the number of clicks that were made
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
