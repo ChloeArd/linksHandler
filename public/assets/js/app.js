@@ -142,29 +142,6 @@ $.get("../../api/link", function (response) {
 // create a link
 if ($("#createLink")) {
     $("#createLink").click(function (e) {
-
-        /*$.post("../../api/link", $data = {
-            href : $("#href").val(),
-            title : $("#title").val(),
-            target : $("#target").val(),
-            name : $("#name").val(),
-            user_fk : $("#user_fk").val()
-        },  function (status) {
-            alert($data.href);
-            if (status.error === "success") {
-                window.location.href = "index?success=0";
-            }
-            if (status.error === "error1") {
-                window.location.href = "index.php?controller=link&action=add&error=1";
-            }
-            if (status.error === "error2") {
-                window.location.href = "index.php?controller=link&action=add&error=2";
-            }
-            if (status.error === "error3") {
-                window.location.href = "index.php?controller=link&action=add&error=3";
-            }
-        }, "json");*/
-
         e.preventDefault();
         $href = $("#href").val();
         $title = $("#title").val();
@@ -361,7 +338,7 @@ if ($("#updatePassUser")) {
                 'pass': $pass,
                 'passR': $passR
             }
-            $xhr.open('PUT', '../../api/user2');
+            $xhr.open('PUT', '../../api/user');
             $xhr.setRequestHeader('Content-Type', 'application/json');
             $xhr.send(JSON.stringify($linkData));
         }
