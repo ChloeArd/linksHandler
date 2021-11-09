@@ -85,7 +85,7 @@ if (isset($_GET['controller'])) {
 else {
     $manager = new LinkManager();
     $links = $manager->getLinks();
-    page("homeView", "Links Handler", ['links' => $links]);
+    page("homeView", "Links Handler");
 }
 
 function page(string $view, string $title, array $var = null) {

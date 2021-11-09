@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once '../../../src/Model/DB.php';
 require_once '../../../src/Model/Entity/User.php';
 require_once '../../../src/Model/Manager/UserManager.php';
@@ -53,6 +53,54 @@ switch ($requestType) {
                 $response = [
                     'error' => 'error2',
                     'message' => 'L\'email n\'est pas valide.',
+                ];
+            }
+        }
+        elseif (isset($data->id, $data->passN, $data->pass, $data->passR)) {
+            $id = intval($data->id);
+            $passN = htmlentities(trim(($data->passN)));
+            $pass = htmlentities(trim(($data->pass)));
+            $passR = htmlentities(trim($data->passR));
+
+            if ($passN === $_SESSION['password']) {
+                $maj = preg_match('@[A-Z]@', $pass);
+                $min = preg_match('@[a-z]@', $pass);
+                $number = preg_match('@[0-9]@', $pass);
+                // Checks if the new password contains an uppercase, a lowercase, a number and that it has a length greater than or equal to 8.
+                if ($maj && $min && $number && strlen($pass) >= 8) {
+                    if ($pass === $passR) {
+                        // The password is encrypted in the database.
+                        $passwordCrypt = password_hash($pass, PASSWORD_BCRYPT);
+                        $_SESSION['password'] = $pass;
+
+                        $user = new User($id, '', '', '', $passwordCrypt);
+                        $result = $manager->updatePasswordUser($user);
+
+                        if (!$result) {
+                            $response = [
+                                'error' => 'error1',
+                                'message' => 'Une erreur est survenue.',
+                            ];
+                        }
+                    }
+                    else {
+                        $response = [
+                            'error' => 'error2',
+                            'message' => 'Les nouveaux mots de passes ne correspondent pas.',
+                        ];
+                    }
+                }
+                else {
+                    $response = [
+                        'error' => 'error3',
+                        'message' => 'Le mot de passe ne contient soit pas de minuscule, majuscule, chiffre ou est inférieur à 8 caractères.',
+                    ];
+                }
+            }
+            else {
+                $response = [
+                    'error' => 'error4',
+                    'message' => 'Le mot de passe actuel est incorrect',
                 ];
             }
         }
