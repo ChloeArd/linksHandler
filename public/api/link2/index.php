@@ -21,9 +21,15 @@ $response = [
     'message' => 'Le lien a été créé avec succès.',
 ];
 
+echo json_encode($response);
+
 
 switch($requestType) {
     case 'POST':
+        $response = [
+            'error' => 'success',
+            'message' => 'Le lien a été créé avec succès.',
+        ];
         $data = json_decode(file_get_contents('php://input'));
         if (isset($data->href, $data->title, $data->target, $data->name, $data->user_fk)) {
             $userManager = new UserManager();
@@ -77,7 +83,6 @@ function thumbalizr($url, $options = array()) {
 
     foreach($options as $key => $value) {
         $query .= '&' . trim($key) . '=' . urlencode(trim($value));
-
     }
     $token = md5($query . $secret);
 
