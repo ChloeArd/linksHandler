@@ -15,21 +15,15 @@ header('Content-Type: application/json');
 
 $manager = new LinkManager();
 
-$response = [
-    'error' => 'success',
-    'message' => 'Le lien a été créé avec succès.',
-];
-
-$data = json_decode(file_get_contents('php://input'));
-if (isset($data->href, $data->title, $data->target, $data->name, $data->user_fk)) {
+if (isset($_POST['href'], $_POST['title'], $_POST['target'], $_POST['name'], $_POST['user_fk'])) {
     $userManager = new UserManager();
 
-    $href = htmlentities(trim($data->href));
-    $title = htmlentities(trim(ucfirst($data->title)));
-    $target = htmlentities(trim($data->target));
-    $name = htmlentities(trim(ucfirst($data->name)));
-    $image = thumbalizr($data->href);
-    $user_fk = intval($data->user_fk);
+    $href = htmlentities(trim($_POST['href']));
+    $title = htmlentities(trim(ucfirst($_POST['title'])));
+    $target = htmlentities(trim($_POST['target']));
+    $name = htmlentities(trim(ucfirst($_POST['name'])));
+    $image = thumbalizr($_POST['href']);
+    $user_fk = intval($_POST['user_fk']);
 
     if (filter_var($href, FILTER_VALIDATE_URL)) {
         $user_fk = $userManager->getUser($user_fk);
@@ -40,6 +34,12 @@ if (isset($data->href, $data->title, $data->target, $data->name, $data->user_fk)
                 $response = [
                     'error' => 'error1',
                     'message' => 'Une erreur est survenue.',
+                ];
+            }
+            else {
+                $response = [
+                    'error' => 'success',
+                    'message' => 'Le lien a été créé avec succès.',
                 ];
             }
         }
