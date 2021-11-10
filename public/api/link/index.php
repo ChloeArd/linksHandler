@@ -57,6 +57,7 @@ switch($requestType) {
                     'message' => 'L\'url n\'est pas valide.',
                 ];
             }
+
         }
         else {
             $response = [
@@ -149,6 +150,9 @@ switch($requestType) {
         }
         echo json_encode($response);
         break;
+
+    default :
+        break;
 }
 
 /**
@@ -180,37 +184,6 @@ function getLinks(LinkManager $manager): string {
         ];
     }
     // Send the response (we encode our array in json format).
-    return json_encode($response);
-}
-
-/**
- * Return only one message.
- * @param LinkManager $manager
- * @param int $id
- * @return string
- */
-function getLinksUser(LinkManager $manager, int $id): string {
-    $data = $manager->getLinksUser($id);
-    foreach($data as $link) {
-        /* @var Link $link */
-        $response[] = [
-            'id' => $link->getId(),
-            'href' => $link->getHref(),
-            'title' => $link->getTitle(),
-            'target' => $link->getTarget(),
-            'name' => $link->getName(),
-            'image' => $link->getImage(),
-            'click' => $link->getClick(),
-            'user' => [
-                'id' => $link->getUserFk()->getId(),
-                'firstname' => $link->getUserFk()->getFirstname(),
-                'lastname' => $link->getUserFk()->getLastname(),
-                'role' => [
-                    'id' => $link->getUserFk()->getRoleFk()->getId(),
-                ]
-            ],
-        ];
-    }
     return json_encode($response);
 }
 
