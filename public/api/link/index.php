@@ -18,7 +18,9 @@ $manager = new LinkManager();
 
 switch($requestType) {
     case 'GET':
+        if(!isset($_GET['action'])) {
             echo getLinks($manager);
+        }
         break;
 
     case 'POST':
