@@ -177,7 +177,7 @@ if ($("#createLink")) {
                 'name': $name,
                 'user_fk': $user_fk
             }
-            $xhr.open('POST', '../../api/link2');
+            $xhr.open('POST', '../../api/link');
             $xhr.setRequestHeader('Content-Type', 'application/json');
             $xhr.send(JSON.stringify($linkData));
         }
