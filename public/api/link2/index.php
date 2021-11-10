@@ -16,13 +16,14 @@ header('Content-Type: application/json');
 $requestType = $_SERVER['REQUEST_METHOD'];
 $manager = new LinkManager();
 
+$response = [
+    'error' => 'success',
+    'message' => 'Le lien a été créé avec succès.',
+];
+
+
 switch($requestType) {
     case 'POST':
-        $response = [
-            'error' => 'success',
-            'message' => 'Le lien a été créé avec succès.',
-        ];
-
         $data = json_decode(file_get_contents('php://input'));
         if (isset($data->href, $data->title, $data->target, $data->name, $data->user_fk)) {
             $userManager = new UserManager();
